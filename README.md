@@ -5,7 +5,7 @@
  
  Prevemos que as vantagens para os usuários do sistema serão imensas. Além da otimização do tempo e também a diminuição dos gastos com combustível e manutenção nos veículos, o software irá auxiliar as empresas a extrair dados mensais para análises internas e assim obter um aprimoramento nas rotas que serão cadastradas. O sistema irá conter níveis de hierarquia dentro das ações disponibilizadas, os motoristas poderão definir as rotas e repassar informações como controle de recebimento, devolução, abastecimento de veículo e manutenção, os funcionários poderão acessar as rotas diárias por meio da placa de cada veículo cadastrado e a empresa terá acesso aos dados de manutenção, combustível, quilometragem percorrida, entre outras informações.
  
- Resps
+ Resps:
  
  - Lui Richard Silva Lima
  - Erik dos Santos Costa Dias
