@@ -7,6 +7,12 @@ option = 0
 driver = 0
 vehicles = 0
 routes = 0
+
+# Bloco iniciado Rafael
+print("Teste Inicial")
+
+# Bloco fechado Rafael
+
 # bloco iniciado por lui
 edeefefef
 # bloco fechado por lui
