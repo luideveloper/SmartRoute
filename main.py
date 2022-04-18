@@ -1,3 +1,4 @@
+# bloco iniciado por lui richard
 import sqlite3
 from system import start, menu, invalid_option
 
@@ -8,14 +9,6 @@ driver = 0
 vehicles = 0
 routes = 0
 
-# Bloco iniciado Rafael
-print("Teste Inicial")
-
-# Bloco fechado Rafael
-
-# bloco iniciado por lui
-edeefefef
-# bloco fechado por lui
 while (option!=3):
     menu()
     option = int(input("Digite o número da opção que deseja: "))
@@ -114,3 +107,5 @@ while (option!=3):
 
         else:
             invalid_option()
+
+# bloco fechado por lui richard
