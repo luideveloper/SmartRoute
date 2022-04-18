@@ -7,7 +7,9 @@ option = 0
 driver = 0
 vehicles = 0
 routes = 0
-
+# bloco iniciado por lui
+edeefefef
+# bloco fechado por lui
 while (option!=3):
     menu()
     option = int(input("Digite o número da opção que deseja: "))
