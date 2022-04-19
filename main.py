@@ -1,6 +1,9 @@
 # bloco iniciado por lui richard
-import sqlite3
+
 from system import start, menu, invalid_option
+from driver import register_driver, read_driver, update_driver, remove_driver
+from vehicles import register_vehicles, read_vehicles, update_vehicles, remove_vehicles
+from routes import register_routes, read_routes, update_routes, remove_routes
 
 start()
 
