@@ -1,3 +1,4 @@
+# bloco iniciado por lui richard
 import sqlite3
 
 def start():
@@ -18,3 +19,5 @@ def menu():
 
 def invalid_option():
      print("Você digitou uma opção inválida")
+
+# bloco fechado por lui richard
