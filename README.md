@@ -12,5 +12,7 @@
  - José Gabriel Vieira de Souza
  - Rafael Bezerra Tavares Vasques Ladim
 
-- Disciplina: Algoritmos e Programação II
-- Professor: Yuri Almeida Lacerda
+#
+
+Disciplina: Algoritmos e Programação II<br>
+Professor: Yuri Almeida Lacerda
