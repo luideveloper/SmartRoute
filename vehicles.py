@@ -56,4 +56,5 @@ def remove_vehicles():
     cursor.execute(consultaDelete+str(plate))
     con.commit()
     con.close()
+    
 #bloco fechado por erik dias 
