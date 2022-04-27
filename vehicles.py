@@ -2,7 +2,7 @@
 
 import sqlite3
 
-def register():
+def register_vehicles():
     con = sqlite3.connect('dados.db')
     cursor = con.cursor()
     plate = input("Digite a placa do veículo: ")
@@ -26,5 +26,5 @@ def update_vehicles():
     consultaAtualizar = "UPDATE cliente SET newplate=?, typevehicle_newkm=?, newkm=?, WHERE plate1=?"
     cursor.execute(consultaAtualizar,(newplate,typevehicle_newkm,newkm,plate1))
     con.commit()
-    con.close()
+    con.close()    
 #bloco fechado por erik dias 
