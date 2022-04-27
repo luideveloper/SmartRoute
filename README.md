@@ -11,7 +11,7 @@
  Resps:
  
  - Lui Richard Silva Lima
- - Erik dos Santos Costa Dias
+ - Erik dos Santos Costa Dias 
  - José Gabriel Vieira de Souza
  - Rafael Bezerra Tavares Vasques Ladim
 
