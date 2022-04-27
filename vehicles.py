@@ -1,7 +1,6 @@
 #bloco iniciado por erik dias 
 
 import sqlite3
-from tokenize import PlainToken
 
 def register_vehicles():
     con = sqlite3.connect('dados.db')
@@ -56,5 +55,5 @@ def remove_vehicles():
     cursor.execute(consultaDelete+str(plate))
     con.commit()
     con.close()
-    
+
 #bloco fechado por erik dias 
