@@ -21,7 +21,7 @@ def first_menu():
     print("[ 3 ] Acessar área de rotas\n")
 
 def check():
-    registered_user = "lui"
+    registered_user = "root"
     registered_password = "123"
     
     user = input("\nDigite seu usuário: ")
