@@ -1,9 +1,9 @@
-#bloco iniciado por erik dias 
+# bloco iniciado por erik dias 
 
 import sqlite3
 
 def register_vehicles():
-    con = sqlite3.connect('dados.db')
+    con = sqlite3.connect("SmartRoute/dados.db")
     cursor = con.cursor()
     plate = input("Digite a placa do veículo: ")
     vehicle_type = input("Digite o tipo do veículo: ")
@@ -17,7 +17,7 @@ def register_vehicles():
 
 
 def read_vehicles():
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute/dados.db")
     cursor = con.cursor()
     query = "SELECT plate, vehicle_type, model, date, km_now FROM vehicles;"
     cursor.execute(query)
@@ -48,7 +48,7 @@ def update_vehicles():
 
 def remove_vehicles():
     read_vehicles()
-    plate = int(input("Qual placa do veículo vocÊ deseja remover? "))
+    plate = int(input("Qual placa do veículo você deseja remover? "))
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     consultaDelete = "DELETE FROM vehicle WHERE plate ="
@@ -56,4 +56,4 @@ def remove_vehicles():
     con.commit()
     con.close()
 
-#bloco fechado por erik dias 
+# bloco fechado por erik dias 

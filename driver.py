@@ -1,56 +1,64 @@
 # bloco iniciado por lui richard
 
 import sqlite3
+import time
 
 def register_driver():
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute/dados.db")
     cursor = con.cursor()
     print("\n=== CADASTRO NOVO MOTORISTA ===\n")
-    nome = input("Nome: ")
+    name = input("Nome: ")
     cpf = input("CPF: ")
-    email = input("E-mail: ")
-    codigo_plano = int(input("Código Plano: "))
-    consultaInsert = "INSERT INTO driver (nome,cpf,email,codigo_plano) VALUES (?,?,?,?);"
-    cursor.execute(consultaInsert,(nome,cpf,email,codigo_plano))
+    type_license = input("Categoria da Habilitação: ")
+    validity_license = input("Validade da Habilitação: ")
+    cod_query_creat = "INSERT INTO driver (name,cpf,type_license,validity_license) VALUES (?,?,?,?);"
+    cursor.execute(cod_query_creat,(name,cpf,type_license,validity_license))
     con.commit()
+    print("\n>> MOTORISTA CADASTRADO COM SUCESSO <<")
+    time.sleep(3)
     con.close()
 
 def read_driver():
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute/dados.db")
     cursor = con.cursor()
-    consulta = "SELECT nome, cpf, email, codigo_plano FROM cliente;"
-    cursor.execute(consulta)
-    print("\n== CLIENTES CADASTRADOS ==\n")
+    cod_query_read = "SELECT name, cpf, type_license, validity_license FROM driver;"
+    cursor.execute(cod_query_read)
+    print("\n== MOTORISTAS CADASTRADOS ==\n")
     for linha in cursor.fetchall():
-        print("Nome", linha[0])
+        print("Nome:", linha[0])
         print("CPF:", linha[1])
-        print("E-mail:", linha[2])
-        print("Código do plano:", linha[3])
-        print(" -------------------")
-
+        print("Categoria da Habilitação:", linha[2])
+        print("Vencimento da Habilitação:", linha[3])
+        print("\n-------------------")
+    time.sleep(3)
     con.close()   
 
 def update_driver():
-    cpf = input("Qual o cpf do cliente a atualizar? ")
-    novoNome = input("Nome: ")
-    novoCPF = input("CPF: ")
-    novoEmail = input("Email: ")
-    novoCodigoPlano = input("Codigo Plano: ")
-    con = sqlite3.connect("dados.db")
+    cpf = input("\nQual o cpf do motorista que deseja atualizar os dados? ")
+    print("\n== DIGITE OS DADOS ATUALIZADOS ==\n")
+    new_name = input("Nome: ")
+    new_cpf = input("CPF: ")
+    new_type_license = input("Categoria da Habilitação: ")
+    new_validity_license = input("Validade da Habilitação: ")
+    con = sqlite3.connect("SmartRoute/dados.db")
     cursor = con.cursor()
-    consultaAtualizar = "UPDATE cliente SET nome=?, cpf=?, email=?, codigo_plano=? WHERE cpf=?"
-    cursor.execute(consultaAtualizar,(novoNome,novoCPF,novoEmail,novoCodigoPlano,cpf))
+    cod_query_update = "UPDATE driver SET name=?, cpf=?, type_license=?, validity_license=? WHERE cpf=?"
+    cursor.execute(cod_query_update,(new_name,new_cpf,new_type_license,new_validity_license,cpf))
     con.commit()
+    print("\n>> MOTORISTA ATUALIZADO COM SUCESSO <<")
+    time.sleep(3)
     con.close()
 
 def remove_driver():
     read_driver()
-    cpf = int(input("Qual o cpf do cliente a remover? "))
-    con = sqlite3.connect("dados.db")
+    cpf = int(input("\nQual o cpf do motorista que deseja remover? "))
+    con = sqlite3.connect("SmartRoute/dados.db")
     cursor = con.cursor()
-    consultaDelete = "DELETE FROM cliente WHERE cpf ="
-    cursor.execute(consultaDelete+str(cpf))
+    cod_query_remove = "DELETE FROM driver WHERE cpf ="
+    cursor.execute(cod_query_remove+str(cpf))
     con.commit()
+    print("\n>> MOTORISTA REMOVIDO COM SUCESSO <<")
+    time.sleep(3)
     con.close()
 
 # bloco fechado por lui richard
