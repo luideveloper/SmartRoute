@@ -1,8 +1,8 @@
-# bloco iniciado por lui richard
+# Start - Code written by Lui Richard - [Github: https://github.com/luideveloper]
 
 from system import start, full_menu
 
 start()
 full_menu()
 
-# bloco fechado por lui richard
+# End - Code written by Lui Richard - [Github: https://github.com/luideveloper]

@@ -1,4 +1,4 @@
-# bloco iniciado por lui richard
+# Start - Code written by Lui Richard - [Github: https://github.com/luideveloper]
 
 import sqlite3
 import time
@@ -61,4 +61,4 @@ def remove_driver():
     time.sleep(3)
     con.close()
 
-# bloco fechado por lui richard
+# End - Code written by Lui Richard - [Github: https://github.com/luideveloper]
