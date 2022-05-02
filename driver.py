@@ -4,6 +4,7 @@ import sqlite3
 import time
 
 def register_driver():
+    print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("SmartRoute/dados.db")
     cursor = con.cursor()
     print("\n=== CADASTRO NOVO MOTORISTA ===\n")
@@ -28,14 +29,15 @@ def read_driver():
         print("Nome:", linha[0])
         print("CPF:", linha[1])
         print("Categoria da Habilitação:", linha[2])
-        print("Vencimento da Habilitação:", linha[3])
+        print("Validade da Habilitação:", linha[3])
         print("\n-------------------")
     time.sleep(3)
-    con.close()   
+    con.close()
 
 def update_driver():
+    print("\x1b[2J\x1b[1;1H")
     cpf = input("\nQual o cpf do motorista que deseja atualizar os dados? ")
-    print("\n== DIGITE OS DADOS ATUALIZADOS ==\n")
+    print("\n=== DIGITE OS DADOS ATUALIZADOS ===\n")
     new_name = input("Nome: ")
     new_cpf = input("CPF: ")
     new_type_license = input("Categoria da Habilitação: ")
@@ -50,6 +52,7 @@ def update_driver():
     con.close()
 
 def remove_driver():
+    print("\x1b[2J\x1b[1;1H")
     read_driver()
     cpf = int(input("\nQual o cpf do motorista que deseja remover? "))
     con = sqlite3.connect("SmartRoute/dados.db")

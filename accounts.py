@@ -60,6 +60,9 @@ def read_account():
     time.sleep(3)
     con.close()
 
+def report_account():
+    print("Ainda em desenvolvimento")
+
 def remove_account():
     read_account()
     security_key = input("\nQual a chave de segurança do motorista que deseja remover? ")

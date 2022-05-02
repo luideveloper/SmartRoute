@@ -2,9 +2,9 @@
 
 import sqlite3
 import time
-from accounts import creat_account, recovery_account, post_error_recovery_account, remove_account
-from driver import register_driver, read_driver, update_driver, remove_driver
-from vehicles import register_vehicles, read_vehicles, update_vehicles, remove_vehicles
+from accounts import *
+from driver import *
+from vehicles import *
 
 def start():
     con = sqlite3.connect('SmartRoute/dados.db')
@@ -15,6 +15,7 @@ def start():
     cursor.execute("CREATE TABLE IF NOT EXISTS accounts (id integer not null, user VARCHAR(200), password VARCHAR(200), security_key VARCHAR(100), PRIMARY KEY (id));")
     con.commit()
     con.close()
+    full_menu()
 
 def first_menu():
     print("\nOlá, seja bem vindo ao Smart Route, o que você deseja?\n")
@@ -22,6 +23,20 @@ def first_menu():
     print("[ 2 ] Acessar área dos veículos")
     print("[ 3 ] Acessar área de rotas")
     print("[ 4 ] Acessar área da empresa\n")
+
+def back_menu():
+    print("\nOperação finalizada, o que você deseja?\n")
+    print("[ 1 ] Retornar ao menu")
+    print("[ 2 ] Encerrar o programa")
+
+    option = input("O que você deseja? ")
+
+    if (option == 1):
+        full_menu()
+    elif (option == 2):
+        exit()
+    else:
+        invalid_option()
 
 def check():
     con = sqlite3.connect("SmartRoute/dados.db")
@@ -31,7 +46,7 @@ def check():
 
     for linha in cursor.fetchall():
         user_bd = linha[0]
-        password_bd = user_bd = linha[1]
+        password_bd = linha[1]
         user = input("\nDigite seu usuário: ")
         password = input("Digite sua senha: ")
         if (user == user_bd and password == password_bd):
@@ -39,7 +54,7 @@ def check():
             print("")
         else:
             post_check_menu()
-
+            
 def post_check_menu():
     print("\n> Usuário ou senha errado")
     time.sleep(2)
@@ -73,7 +88,9 @@ def full_menu():
     while (option!=3):
         first_menu()
         option = int(input("Digite o número da opção que deseja: "))
+        print("\x1b[2J\x1b[1;1H")
         if (option == 1):
+            print("=== ÁREA MOTORISTA ===")
             print("\n[ 1 ] Cadastrar motorista")
             print("[ 2 ] Visualizar motoristas cadastrados")
             print("[ 3 ] Editar motorista")
@@ -91,10 +108,14 @@ def full_menu():
 
             elif (driver == 3):
                 update_driver()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (driver == 4):
                 remove_driver()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (driver == 5):
@@ -104,7 +125,9 @@ def full_menu():
             else:
                 invalid_option()
         
+        print("\x1b[2J\x1b[1;1H")
         if (option == 2):
+            print("=== ÁREA VEÍCULOS ===")
             print("\n[ 1 ] Cadastrar veículos")
             print("[ 2 ] Visualizar veículos cadastrados")
             print("[ 3 ] Editar veículos")
@@ -115,18 +138,26 @@ def full_menu():
 
             if (vehicles == 1):
                 register_vehicles()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (vehicles == 2):
                 read_vehicles()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (vehicles == 3):
                 update_vehicles()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (vehicles == 4):
                 remove_vehicles()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (vehicles == 5):
@@ -136,7 +167,9 @@ def full_menu():
             else:
                 invalid_option()
 
+        print("\x1b[2J\x1b[1;1H")
         if (option == 3):
+            print("=== ÁREA ROTAS ===")
             print("\n[ 1 ] Cadastrar rotas")
             print("[ 2 ] Visualizar rotas cadastrados")
             print("[ 3 ] Editar rotas")
@@ -147,18 +180,26 @@ def full_menu():
 
             if (routes == 1):
                 register_routes()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (routes == 2):
                 read_routes()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (routes == 3):
                 update_routes()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (routes == 4):
                 remove_routes()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
             elif (routes == 5):
@@ -168,33 +209,47 @@ def full_menu():
             else:
                 invalid_option()
 
+        print("\x1b[2J\x1b[1;1H")
         if (option == 4):
+            print("=== ÁREA EMPRESA ===")
             print("\n[ 1 ] Cadastrar conta")
             print("[ 2 ] Recuperar conta")
             print("[ 3 ] Visualizar relatório")
             print("[ 4 ] Excluir contas")
             print("[ 5 ] Voltar ao menu principal\n")
 
-            routes = int(input("Digite o número da opção que deseja: "))
+            accounts = int(input("Digite o número da opção que deseja: "))
 
-            if (routes == 1):
+            if (accounts == 1):
                 creat_account()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
-            elif (routes == 2):
+            elif (accounts == 2):
                 recovery_account()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
-            elif (routes == 3):
-                update_routes()
+            elif (accounts == 3):
+                report_account()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
-            elif (routes == 4):
+            elif (accounts == 4):
                 remove_account()
+                print("\x1b[2J\x1b[1;1H")
+                back_menu()
                 print("")
 
-            elif (routes == 5):
+            elif (accounts == 5):
                 first_menu()
+                print("")
+            
+            elif (accounts == 6):
+                read_account()
                 print("")
 
             else:
