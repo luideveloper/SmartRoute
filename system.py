@@ -2,9 +2,12 @@
 
 import sqlite3
 import time
+from create_bd import *
 from accounts import *
 from driver import *
 from vehicles import *
+from routes import *
+
 
 def start():
     con = sqlite3.connect('SmartRoute/dados.db')
