@@ -3,8 +3,14 @@
 import sqlite3
 import time
 
+from menus import *
+from create_bd import *
+from driver import *
+from vehicles import *
+from routes import *
+
 def creat_account():
-    con = sqlite3.connect("SmartRoute/dados.db")
+    con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     print("\n=== CADASTRE-SE NO SISTEMA ===\n")
     user = input("Usuário: ")
@@ -23,7 +29,7 @@ def recovery_account():
     new_password = input("Senha nova: ")
     repeat_new_password = input("Repita a senha nova: ")
     if (new_password == repeat_new_password):
-        con = sqlite3.connect("SmartRoute/dados.db")
+        con = sqlite3.connect("dados.db")
         cursor = con.cursor()
         cod_query_update = "UPDATE accounts SET password=? WHERE security_key=?"
         cursor.execute(cod_query_update,(new_password,security_key))
@@ -47,7 +53,7 @@ def post_error_recovery_account():
         full_menu()
 
 def read_account():
-    con = sqlite3.connect("SmartRoute/dados.db")
+    con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     cod_query_read = "SELECT user, password, security_key FROM accounts;"
     cursor.execute(cod_query_read)
@@ -66,7 +72,7 @@ def report_account():
 def remove_account():
     read_account()
     security_key = input("\nQual a chave de segurança do motorista que deseja remover? ")
-    con = sqlite3.connect("SmartRoute/dados.db")
+    con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     cod_query_remove = "DELETE FROM accounts WHERE security_key ="
     cursor.execute(cod_query_remove+str(security_key))

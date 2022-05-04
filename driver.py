@@ -3,9 +3,15 @@
 import sqlite3
 import time
 
+from menus import *
+from create_bd import *
+from accounts import *
+from vehicles import *
+from routes import *
+
 def register_driver():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("SmartRoute/dados.db")
+    con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     print("\n=== CADASTRO NOVO MOTORISTA ===\n")
     name = input("Nome: ")
@@ -20,7 +26,7 @@ def register_driver():
     con.close()
 
 def read_driver():
-    con = sqlite3.connect("SmartRoute/dados.db")
+    con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     cod_query_read = "SELECT name, cpf, type_license, validity_license FROM driver;"
     cursor.execute(cod_query_read)
@@ -42,7 +48,7 @@ def update_driver():
     new_cpf = input("CPF: ")
     new_type_license = input("Categoria da Habilitação: ")
     new_validity_license = input("Validade da Habilitação: ")
-    con = sqlite3.connect("SmartRoute/dados.db")
+    con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     cod_query_update = "UPDATE driver SET name=?, cpf=?, type_license=?, validity_license=? WHERE cpf=?"
     cursor.execute(cod_query_update,(new_name,new_cpf,new_type_license,new_validity_license,cpf))
@@ -55,7 +61,7 @@ def remove_driver():
     print("\x1b[2J\x1b[1;1H")
     read_driver()
     cpf = int(input("\nQual o cpf do motorista que deseja remover? "))
-    con = sqlite3.connect("SmartRoute/dados.db")
+    con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     cod_query_remove = "DELETE FROM driver WHERE cpf ="
     cursor.execute(cod_query_remove+str(cpf))
