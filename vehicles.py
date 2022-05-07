@@ -1,4 +1,4 @@
-# bloco iniciado por erik dias 
+#  Start - Code written by Erik Dias - [Github: https://github.com/erikdias7]
 
 import sqlite3
 
@@ -56,4 +56,4 @@ def remove_vehicles():
     con.commit()
     con.close()
 
-# bloco fechado por erik dias 
+#  End - Code written by Erik Dias - [Github: https://github.com/erikdias7]
