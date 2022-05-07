@@ -6,12 +6,12 @@ def register_vehicles():
     con = sqlite3.connect("SmartRoute/dados.db")
     cursor = con.cursor()
     plate = input("Digite a placa do veículo: ")
-    vehicle_type = input("Digite o tipo do veículo: ")
+    type = input("Digite o tipo do veículo: ")
     model = input("Digite o modelo do veículo: ")
     date = input("Digite a data de fabricação do veículo: ")
     km_now = input("Digite o quilômetro atual: ")
     consultaInsert = "INSERT INTO vehicles (plate,vehicles_type,model,date,km_initial,km_now) VALUES (?,?,?,?,?);"
-    cursor.execute(consultaInsert,(plate,vehicle_type,model,date,km_now))
+    cursor.execute(consultaInsert,(plate,type,model,date,km_now))
     con.commit()
     con.close()
 
