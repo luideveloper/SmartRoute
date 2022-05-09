@@ -3,12 +3,6 @@
 import sqlite3
 import time
 
-from menus import *
-from create_bd import *
-from driver import *
-from vehicles import *
-from routes import *
-
 def creat_account():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
@@ -50,7 +44,7 @@ def post_error_recovery_account():
     if (option == 1):
         recovery_account()
     elif (option == 2):
-        full_menu()
+        print("vai da certo")
 
 def read_account():
     con = sqlite3.connect("dados.db")

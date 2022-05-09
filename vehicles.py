@@ -1,9 +1,10 @@
-#  Start - Code written by Erik Dias - [Github: https://github.com/erikdias7]
+# Start - Code written by Lui Richard - [Github: https://github.com/luideveloper]
 
 import sqlite3
+import time
 
 def register_vehicles():
-    con = sqlite3.connect("SmartRoute/dados.db")
+    con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     plate = input("Digite a placa do veículo: ")
     type = input("Digite o tipo do veículo: ")
@@ -17,7 +18,7 @@ def register_vehicles():
 
 
 def read_vehicles():
-    con = sqlite3.connect("SmartRoute/dados.db")
+    con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     query = "SELECT plate, vehicle_type, model, date, km_now FROM vehicles;"
     cursor.execute(query)
@@ -56,4 +57,4 @@ def remove_vehicles():
     con.commit()
     con.close()
 
-#  End - Code written by Erik Dias - [Github: https://github.com/erikdias7]
+# bloco fechado por erik dias 
