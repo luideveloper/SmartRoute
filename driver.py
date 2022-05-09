@@ -3,12 +3,6 @@
 import sqlite3
 import time
 
-from menus import *
-from create_bd import *
-from accounts import *
-from vehicles import *
-from routes import *
-
 def register_driver():
     print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
