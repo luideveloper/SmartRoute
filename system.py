@@ -13,7 +13,7 @@ def start_bd():
     cursor = con.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS users (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), user VARCHAR(200), password VARCHAR(200), office VARCHAR(100), security_key VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS driver (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), type_license VARCHAR(100), validity_license VARCHAR(100), PRIMARY KEY (reg));")
-    cursor.execute("CREATE TABLE IF NOT EXISTS vehicles (codigo integer, marca VARCHAR(200), modelo VARCHAR(200), data_fabricação VARCHAR(200), km_atual VARCHAR(200), ultima_km_manutencao VARCHAR(200));")
+    cursor.execute("CREATE TABLE IF NOT EXISTS vehicles (reg integer, plate VARCHAR(200), vehicles_type VARCHAR(200), model VARCHAR(200), date VARCHAR(200), km_inital VARCHAR(200), km_now VARCHAR(200), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS routes (codigo integer, nome_do_plano VARCHAR(200), valor_mensal real);")
     con.commit()
     con.close()
@@ -238,8 +238,8 @@ def menu_business():
 def menu_driver():
     print("\x1b[2J\x1b[1;1H")
     print("\n=== Olá, seja bem vindo ao painel | Setor: Motorista ===\n")
-    print("[ 1 ] Acessar área dos motoristas")
-    print("[ 2 ] Acessar área dos veículos")
+    print("[ 1 ] Visualizar rotas")
+    print("[ 2 ] Visualizar veiculos")
     print("[ 3 ] Acessar área de rotas")
     print("[ 4 ] Acessar área da empresa")
     print("[ 5 ] Voltar ao menu anterior")
@@ -334,6 +334,7 @@ def post_login_error():
 
 def create_account():
     print("\x1b[2J\x1b[1;1H")
+
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
 
@@ -353,12 +354,14 @@ def create_account():
         password = input("Senha: ")
         security_key = input("Chave de segurança: ")
         print("\n---------------------")
+
+        print("\nSetores:")
         
         print("\n[ 1 ] Administrativo")
         print("[ 2 ] Motorista")
         print("[ 3 ] Operacional")
 
-        option = int(input("\nQual seu cargo? "))
+        option = int(input("\nQual o seu setor? "))
 
         if (option == 1):
             office = "Administrativo"
@@ -369,20 +372,40 @@ def create_account():
         else:
             invalid_option()
 
-        cod_query_read = "SELECT user FROM users WHERE user=?;"
-        cursor.execute(cod_query_read,(user,))
+        cod_query_read = "SELECT user, security_key FROM users"
+        cursor.execute(cod_query_read)
 
         list_users = []
+        list_security_key = []
     
         for linha in cursor.fetchall():
             user_bd = linha[0]
+            security_key_bd = linha[1]
+
             list_users.append(user_bd)
+            list_security_key.append(security_key_bd)
 
         if (user in list_users):
+
+            if (security_key in list_security_key):
+                print("\x1b[2J\x1b[1;1H")
+                print("=== ATENÇÃO ===\n")
+                print("Usuário e chave de segurança já existentes em cadastro, escolha outro usuário e outra chave para finalizar o cadastro")
+                time.sleep(6)
+                create_account()
+            
+            else:
+                print("\x1b[2J\x1b[1;1H")
+                print("=== ATENÇÃO ===\n")
+                print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
+                time.sleep(6)
+                create_account()
+
+        elif (security_key in list_security_key):
             print("\x1b[2J\x1b[1;1H")
             print("=== ATENÇÃO ===\n")
-            print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
-            time.sleep(2)
+            print("Chave de segurança já existente em cadastro, escolha outra chave para finalizar o cadastro")
+            time.sleep(6)
             create_account()
         else:
             cod_query_creat = "INSERT INTO users (name,cpf,user,password,office,security_key) VALUES (?,?,?,?,?,?);"
@@ -390,7 +413,7 @@ def create_account():
             con.commit()
             print("\n>> CADASTRADO REALIZADO COM SUCESSO <<")
             con.close()
-            time.sleep(3)
+            time.sleep(4)
             menu()
     else:
         print("\x1b[2J\x1b[1;1H")
@@ -417,22 +440,41 @@ def create_account():
 
 def recovery_account():
     print("\x1b[2J\x1b[1;1H")
+    con = sqlite3.connect("dados.db")
+    cursor = con.cursor()
+
     security_key = input("\nQual a chave de segurança da conta que deseja recuperar? ")
-    print("\n== DIGITE UMA NOVA SENHA ==\n")
-    new_password = input("Senha nova: ")
-    repeat_new_password = input("Repita a senha nova: ")
-    if (new_password == repeat_new_password):
-        con = sqlite3.connect("dados.db")
-        cursor = con.cursor()
-        cod_query_update = "UPDATE users SET password=? WHERE security_key=?"
-        cursor.execute(cod_query_update,(new_password,security_key))
-        con.commit()
-        print("\n>> SENHA ATUALIZADA COM SUCESSO <<")
-        time.sleep(3)
-        con.close()
-        menu()
+
+    cod_query_read = "SELECT security_key FROM users WHERE security_key=?;"
+    cursor.execute(cod_query_read,(security_key,))
+
+    list_security_key = []
+    
+    for linha in cursor.fetchall():
+        security_key_bd = linha[0]
+        list_security_key.append(security_key_bd)
+
+    if (security_key in list_security_key):
+        print("\n== DIGITE UMA NOVA SENHA ==\n")
+        new_password = input("Senha nova: ")
+        repeat_new_password = input("Repita a senha nova: ")
+        if (new_password == repeat_new_password):
+            cod_query_update = "UPDATE users SET password=? WHERE security_key=?"
+            cursor.execute(cod_query_update,(new_password,security_key))
+            con.commit()
+            print("\n>> SENHA ATUALIZADA COM SUCESSO <<")
+            time.sleep(3)
+            con.close()
+            menu()
+        else:
+            post_error_recovery_account()
+        
     else:
-        post_error_recovery_account()
+        print("\x1b[2J\x1b[1;1H")
+        print("=== ATENÇÃO ===\n")
+        print("Chave de seguranção não encontrada, por favor informe a chave correta")
+        time.sleep(4)
+        recovery_account()
 
 def post_error_recovery_account():
     print("\n> As senhas digitadas não são iguais")
