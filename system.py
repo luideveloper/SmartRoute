@@ -25,6 +25,7 @@ def menu():
     print("\n[ 1 ] Faça login")
     print("[ 2 ] Criar conta")
     print("[ 3 ] Recuperar conta")
+    print("[ 4 ] Sair do programa")
 
     option = int(input("\nO que você deseja? "))
 
@@ -34,6 +35,9 @@ def menu():
         create_account()
     elif (option == 3):
         recovery_account()
+    elif (option == 4):
+        print("\x1b[2J\x1b[1;1H")
+        exit()
     else:
         invalid_option()
 
@@ -44,7 +48,8 @@ def menu_business():
     print("[ 2 ] Acessar área dos veículos")
     print("[ 3 ] Acessar área de rotas")
     print("[ 4 ] Acessar área da empresa")
-    print("[ 5 ] Sair do programa\n")
+    print("[ 5 ] Voltar ao menu anterior")
+    print("[ 6 ] Sair do programa\n")
 
     option = int(input("Digite o número da opção que deseja: "))
 
@@ -55,7 +60,8 @@ def menu_business():
         print("[ 2 ] Visualizar motoristas cadastrados")
         print("[ 3 ] Editar motorista")
         print("[ 4 ] Remover motorista")
-        print("[ 5 ] Voltar ao menu principal\n")
+        print("[ 5 ] Voltar ao menu anterior")
+        print("[ 6 ] Sair do programa\n")
 
         driver = int(input("Digite o número da opção que deseja: "))
 
@@ -82,6 +88,13 @@ def menu_business():
         elif (driver == 5):
             print("\x1b[2J\x1b[1;1H")
             menu_business()
+        
+        elif (driver == 6):
+            print("\x1b[2J\x1b[1;1H")
+            exit()
+
+        else:
+            invalid_option()
 
     elif (option == 2):
         print("\x1b[2J\x1b[1;1H")
@@ -90,7 +103,8 @@ def menu_business():
         print("[ 2 ] Visualizar veículos cadastrados")
         print("[ 3 ] Editar veículos")
         print("[ 4 ] Remover veículos")
-        print("[ 5 ] Voltar ao menu principal\n")
+        print("[ 5 ] Voltar ao menu anterior")
+        print("[ 6 ] Sair do programa\n")
 
         vehicles = int(input("Digite o número da opção que deseja: "))
 
@@ -118,6 +132,13 @@ def menu_business():
             print("\x1b[2J\x1b[1;1H")
             menu_business()
 
+        elif (vehicles == 6):
+            print("\x1b[2J\x1b[1;1H")
+            exit()
+
+        else:
+            invalid_option()
+
     elif (option == 3):
         print("\x1b[2J\x1b[1;1H")
         print("=== ÁREA ROTAS ===")
@@ -125,7 +146,8 @@ def menu_business():
         print("[ 2 ] Visualizar rotas cadastrados")
         print("[ 3 ] Editar rotas")
         print("[ 4 ] Remover rotas")
-        print("[ 5 ] Voltar ao menu principal\n")
+        print("[ 5 ] Voltar ao menu anterior")
+        print("[ 6 ] Sair do programa\n")
 
         routes = int(input("Digite o número da opção que deseja: "))
 
@@ -153,13 +175,21 @@ def menu_business():
             print("\x1b[2J\x1b[1;1H")
             menu_business()
 
+        elif (routes == 6):
+            print("\x1b[2J\x1b[1;1H")
+            exit()
+
+        else:
+            invalid_option()
+
     elif (option == 4):
         print("=== ÁREA EMPRESA ===")
         print("\n[ 1 ] Cadastrar conta")
         print("[ 2 ] Recuperar conta")
         print("[ 3 ] Visualizar relatório")
         print("[ 4 ] Excluir contas")
-        print("[ 5 ] Voltar ao menu principal\n")
+        print("[ 5 ] Voltar ao menu anterior")
+        print("[ 6 ] Sair do programa\n")
 
         business = int(input("Digite o número da opção que deseja: "))
 
@@ -187,7 +217,18 @@ def menu_business():
             print("\x1b[2J\x1b[1;1H")
             menu_business()
 
+        elif (business == 6):
+            print("\x1b[2J\x1b[1;1H")
+            exit()
+
+        else:
+            invalid_option()
+
     elif (option == 5):
+        print("\x1b[2J\x1b[1;1H")
+        menu()
+    
+    elif (option == 6):
         print("\x1b[2J\x1b[1;1H")
         exit()
 
@@ -200,7 +241,9 @@ def menu_driver():
     print("[ 1 ] Acessar área dos motoristas")
     print("[ 2 ] Acessar área dos veículos")
     print("[ 3 ] Acessar área de rotas")
-    print("[ 4 ] Acessar área da empresa\n")
+    print("[ 4 ] Acessar área da empresa")
+    print("[ 5 ] Voltar ao menu anterior")
+    print("[ 6 ] Sair do programa\n")
 
     option = int(input("Digite o número da opção que deseja: "))
 
@@ -294,10 +337,10 @@ def create_account():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
 
-    key_company = "smartrouteclienttest"
+    key_company = "keytest"
 
     print("\n=== DIGITE A CHAVE DE PERMISSÃO===\n")
-    print("Para poder criar uma conta e ter acesso no sistema, você precisa forncer a chave de permissão fornecida pela empresa\n")
+    print("Para poder criar uma conta e ter acesso no sistema, você precisa fornecer a chave de permissão fornecida pela empresa\n")
 
     key = input("Chave de permissão: ")
 
@@ -325,14 +368,30 @@ def create_account():
             office = "Operacional"
         else:
             invalid_option()
-        
-        cod_query_creat = "INSERT INTO users (name,cpf,user,password,office,security_key) VALUES (?,?,?,?,?,?);"
-        cursor.execute(cod_query_creat,(name,cpf,user,password,office,security_key))
-        con.commit()
-        print("\n>> CADASTRADO REALIZADO COM SUCESSO <<")
-        con.close()
-        time.sleep(3)
-        menu()
+
+        cod_query_read = "SELECT user FROM users WHERE user=?;"
+        cursor.execute(cod_query_read,(user,))
+
+        list_users = []
+    
+        for linha in cursor.fetchall():
+            user_bd = linha[0]
+            list_users.append(user_bd)
+
+        if (user in list_users):
+            print("\x1b[2J\x1b[1;1H")
+            print("=== ATENÇÃO ===\n")
+            print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
+            time.sleep(2)
+            create_account()
+        else:
+            cod_query_creat = "INSERT INTO users (name,cpf,user,password,office,security_key) VALUES (?,?,?,?,?,?);"
+            cursor.execute(cod_query_creat,(name,cpf,user,password,office,security_key))
+            con.commit()
+            print("\n>> CADASTRADO REALIZADO COM SUCESSO <<")
+            con.close()
+            time.sleep(3)
+            menu()
     else:
         print("\x1b[2J\x1b[1;1H")
         print("Chave inválida")
