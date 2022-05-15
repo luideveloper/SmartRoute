@@ -3,6 +3,7 @@
 import sqlite3
 import time
 
+from system import *
 from driver import *
 from vehicles import *
 from routes import *
@@ -11,7 +12,7 @@ from business import *
 def start_bd():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS users (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), user VARCHAR(200), password VARCHAR(200), office VARCHAR(100), security_key VARCHAR(100), PRIMARY KEY (reg));")
+    cursor.execute("CREATE TABLE IF NOT EXISTS users (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), user VARCHAR(200), password VARCHAR(200), office VARCHAR(100), type_license VARCHAR(100), validity_license VARCHAR(100), security_key VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS driver (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), type_license VARCHAR(100), validity_license VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS vehicles (reg integer, plate VARCHAR(200), vehicles_type VARCHAR(200), model VARCHAR(200), date VARCHAR(200), km_inital VARCHAR(200), km_now VARCHAR(200), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS routes (codigo integer, nome_do_plano VARCHAR(200), valor_mensal real);")
@@ -68,22 +69,22 @@ def menu_business():
         if (driver == 1):
             print("\x1b[2J\x1b[1;1H")
             register_driver()
-            print("")
+            menu()
             
         elif (driver == 2):
             print("\x1b[2J\x1b[1;1H")
             read_driver()
-            print("")
+            menu()
         
         elif (driver == 3):
             print("\x1b[2J\x1b[1;1H")
             update_driver()
-            print("")
+            menu()
         
         elif (driver == 4):
             print("\x1b[2J\x1b[1;1H")
             remove_driver()
-            print("")
+            menu()
         
         elif (driver == 5):
             print("\x1b[2J\x1b[1;1H")
@@ -271,18 +272,14 @@ def login():
     print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    cod_query_read = "SELECT user, password, office FROM users;"
+    cod_query_read = "SELECT user FROM users;"
     cursor.execute(cod_query_read)
 
-    lista_usuarios = []
-    lista_senha = []
+    list_users = []
     
     for linha in cursor.fetchall():
         user_bd = linha[0]
-        password_bd = linha[1]
-        office_bd = linha[2]
-        lista_usuarios.append(user_bd)
-        lista_senha.append(password_bd)
+        list_users.append(user_bd)
     
     business = "Administrativo"
     driver = "Motorista"
@@ -292,12 +289,13 @@ def login():
     user = input("\nDigite seu usuário: ")
     password = input("Digite sua senha: ")
 
-    cod_query_read_2 = "SELECT user, office FROM users WHERE user=?;"
+    cod_query_read_2 = "SELECT user, password, office FROM users WHERE user=?;"
     cursor.execute(cod_query_read_2,(user,))
     for linha in cursor.fetchall():
-        office_bd = linha[1]
+        password_bd = linha[1]
+        office_bd = linha[2]
 
-    if (user in lista_usuarios and password in password_bd):
+    if (user in list_users and password == password_bd):
         if (business == office_bd):
             menu_business()
         elif (driver == office_bd):
@@ -338,7 +336,7 @@ def create_account():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
 
-    key_company = "keytest"
+    key_company = "1"
 
     print("\n=== DIGITE A CHAVE DE PERMISSÃO===\n")
     print("Para poder criar uma conta e ter acesso no sistema, você precisa fornecer a chave de permissão fornecida pela empresa\n")
@@ -348,15 +346,8 @@ def create_account():
     if (key == key_company):
         print("\x1b[2J\x1b[1;1H")
         print("\n=== CADASTRE-SE ===\n")
-        name = input("Nome: ")
-        cpf = input("CPF: ")
-        user = input("Usuário: ")
-        password = input("Senha: ")
-        security_key = input("Chave de segurança: ")
-        print("\n---------------------")
 
-        print("\nSetores:")
-        
+        print("Setores:")
         print("\n[ 1 ] Administrativo")
         print("[ 2 ] Motorista")
         print("[ 3 ] Operacional")
@@ -366,26 +357,45 @@ def create_account():
         if (option == 1):
             office = "Administrativo"
         elif (option == 2):
-            office = "Motorista"
+            register_driver()
+            menu()
         elif (option == 3):
             office = "Operacional"
         else:
             invalid_option()
 
-        cod_query_read = "SELECT user, security_key FROM users"
+        print("\x1b[2J\x1b[1;1H")
+        name = input("Nome: ")
+        cpf = input("CPF: ")
+        user = input("Usuário: ")
+        password = input("Senha: ")
+        security_key = input("Chave de segurança: ")
+        print("\n---------------------")
+
+        cod_query_read = "SELECT cpf, user, security_key FROM users"
         cursor.execute(cod_query_read)
 
+        list_cpf = []
         list_users = []
         list_security_key = []
     
         for linha in cursor.fetchall():
-            user_bd = linha[0]
-            security_key_bd = linha[1]
+            cpf_bd = linha[0]
+            user_bd = linha[1]
+            security_key_bd = linha[2]
 
+            list_cpf.append(cpf_bd)
             list_users.append(user_bd)
             list_security_key.append(security_key_bd)
 
-        if (user in list_users):
+        if (cpf in list_cpf):
+            print("\x1b[2J\x1b[1;1H")
+            print("=== ATENÇÃO ===\n")
+            print("CPF existente em cadastro, cadastre outro CPF para finalizar o cadastro")
+            time.sleep(6)
+            create_account()
+
+        elif (user in list_users):
 
             if (security_key in list_security_key):
                 print("\x1b[2J\x1b[1;1H")
