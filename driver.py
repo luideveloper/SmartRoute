@@ -88,31 +88,48 @@ def read_driver():
 
 def update_driver():
     print("\x1b[2J\x1b[1;1H")
-    cpf = input("\nQual o cpf do motorista que deseja atualizar os dados? ")
-    print("\n=== DIGITE OS DADOS ATUALIZADOS ===\n")
-    new_name = input("Nome: ")
-    new_cpf = input("CPF: ")
-    new_type_license = input("Categoria da Habilitação: ")
-    new_validity_license = input("Validade da Habilitação: ")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    cod_query_update = "UPDATE users SET name=?, cpf=?, type_license=?, validity_license=? WHERE cpf=?"
-    cursor.execute(cod_query_update,(new_name,new_cpf,new_type_license,new_validity_license,cpf))
-    con.commit()
-    print("\n>> MOTORISTA ATUALIZADO COM SUCESSO <<")
-    time.sleep(3)
-    con.close()
 
+    cpf = input("\nQual o cpf do funcionário que deseja atualizar os dados? ")
+
+    cod_query_read = "SELECT cpf FROM users"
+    cursor.execute(cod_query_read)
+
+    list_cpf = []
+    
+    for linha in cursor.fetchall():
+        cpf_bd = linha[0]
+        list_cpf.append(cpf_bd)
+    
+    if (cpf in list_cpf):
+        print("\n=== DIGITE OS DADOS ATUALIZADOS ===\n")
+        new_name = input("Nome: ")
+        new_cpf = input("CPF: ")
+        new_type_license = input("Categoria da Habilitação: ")
+        new_validity_license = input("Validade da Habilitação: ")
+        cod_query_update = "UPDATE users SET name=?, cpf=?, type_license=?, validity_license=? WHERE cpf=?"
+        cursor.execute(cod_query_update,(new_name,new_cpf,new_type_license,new_validity_license,cpf))
+        con.commit()
+        print("\n>> MOTORISTA ATUALIZADO COM SUCESSO <<")
+        time.sleep(3)
+        con.close()
+    else:
+        print("\x1b[2J\x1b[1;1H")
+        print("=== Funcionário não encontrado ===")
+        time.sleep(5)
+        con.close()
+        
 def remove_driver():
     print("\x1b[2J\x1b[1;1H")
-    read_driver()
-    cpf = int(input("\nQual o cpf do motorista que deseja remover? "))
+    print("\n== REMOVER CADASTRO ==\n")
+    cpf = int(input("\nQual o cpf do funcionário que deseja remover? "))
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    cod_query_remove = "DELETE FROM driver WHERE cpf ="
+    cod_query_remove = "DELETE FROM users WHERE cpf ="
     cursor.execute(cod_query_remove+str(cpf))
     con.commit()
-    print("\n>> MOTORISTA REMOVIDO COM SUCESSO <<")
+    print("\n>> CADASTRO REMOVIDO COM SUCESSO <<")
     time.sleep(3)
     con.close()
 
