@@ -3,7 +3,6 @@
 import sqlite3
 import time
 
-from system import *
 from driver import *
 from vehicles import *
 from routes import *
@@ -58,7 +57,7 @@ def menu_business():
         print("\x1b[2J\x1b[1;1H")
         print("=== ÁREA MOTORISTA ===")
         print("\n[ 1 ] Cadastrar motorista")
-        print("[ 2 ] Visualizar motoristas cadastrados")
+        print("[ 2 ] Visualizar motoristas")
         print("[ 3 ] Editar motorista")
         print("[ 4 ] Remover motorista")
         print("[ 5 ] Voltar ao menu anterior")
@@ -69,22 +68,22 @@ def menu_business():
         if (driver == 1):
             print("\x1b[2J\x1b[1;1H")
             register_driver()
-            menu()
+            post_action_business()
             
         elif (driver == 2):
             print("\x1b[2J\x1b[1;1H")
             read_driver()
-            menu()
+            post_action_business()
         
         elif (driver == 3):
             print("\x1b[2J\x1b[1;1H")
             update_driver()
-            menu()
+            post_action_business()
         
         elif (driver == 4):
             print("\x1b[2J\x1b[1;1H")
             remove_driver()
-            menu()
+            post_action_business()
         
         elif (driver == 5):
             print("\x1b[2J\x1b[1;1H")
@@ -101,7 +100,7 @@ def menu_business():
         print("\x1b[2J\x1b[1;1H")
         print("=== ÁREA VEÍCULOS ===")
         print("\n[ 1 ] Cadastrar veículos")
-        print("[ 2 ] Visualizar veículos cadastrados")
+        print("[ 2 ] Visualizar veículos")
         print("[ 3 ] Editar veículos")
         print("[ 4 ] Remover veículos")
         print("[ 5 ] Voltar ao menu anterior")
@@ -112,22 +111,18 @@ def menu_business():
         if (vehicles == 1):
             print("\x1b[2J\x1b[1;1H")
             register_vehicles()
-            print("")
             
         elif (vehicles == 2):
             print("\x1b[2J\x1b[1;1H")
             read_vehicles()
-            print("")
         
         elif (vehicles == 3):
             print("\x1b[2J\x1b[1;1H")
             update_vehicles()
-            print("")
         
         elif (vehicles == 4):
             print("\x1b[2J\x1b[1;1H")
             remove_vehicles()
-            print("")
         
         elif (vehicles == 5):
             print("\x1b[2J\x1b[1;1H")
@@ -144,7 +139,7 @@ def menu_business():
         print("\x1b[2J\x1b[1;1H")
         print("=== ÁREA ROTAS ===")
         print("\n[ 1 ] Cadastrar rotas")
-        print("[ 2 ] Visualizar rotas cadastrados")
+        print("[ 2 ] Visualizar rotas")
         print("[ 3 ] Editar rotas")
         print("[ 4 ] Remover rotas")
         print("[ 5 ] Voltar ao menu anterior")
@@ -154,23 +149,19 @@ def menu_business():
 
         if (routes == 1):
             print("\x1b[2J\x1b[1;1H")
-            register_routes()
-            print("")
+            register_routes()          
             
         elif (routes == 2):
             print("\x1b[2J\x1b[1;1H")
             read_routes()
-            print("")
         
         elif (routes == 3):
             print("\x1b[2J\x1b[1;1H")
             update_routes()
-            print("")
         
         elif (routes == 4):
             print("\x1b[2J\x1b[1;1H")
             remove_routes()
-            print("")
         
         elif (routes == 5):
             print("\x1b[2J\x1b[1;1H")
@@ -187,38 +178,39 @@ def menu_business():
         print("=== ÁREA EMPRESA ===")
         print("\n[ 1 ] Cadastrar conta")
         print("[ 2 ] Recuperar conta")
-        print("[ 3 ] Visualizar relatório")
-        print("[ 4 ] Excluir contas")
-        print("[ 5 ] Voltar ao menu anterior")
-        print("[ 6 ] Sair do programa\n")
+        print("[ 3 ] Atualizar cadastro")
+        print("[ 4 ] Visualizar relatório")
+        print("[ 5 ] Excluir contas")
+        print("[ 6 ] Voltar ao menu anterior")
+        print("[ 7 ] Sair do programa\n")
 
         business = int(input("Digite o número da opção que deseja: "))
 
         if (business == 1):
             print("\x1b[2J\x1b[1;1H")
-            register_routes()
-            print("")
+            creat_account()
             
         elif (business == 2):
             print("\x1b[2J\x1b[1;1H")
-            read_routes()
-            print("")
+            recovery_account()
         
         elif (business == 3):
             print("\x1b[2J\x1b[1;1H")
-            update_routes()
-            print("")
+            update_account()
         
         elif (business == 4):
             print("\x1b[2J\x1b[1;1H")
-            remove_routes()
-            print("")
+            print("Ainda em desenvolvimento")
         
         elif (business == 5):
             print("\x1b[2J\x1b[1;1H")
-            menu_business()
+            remove_account()
 
         elif (business == 6):
+            print("\x1b[2J\x1b[1;1H")
+            menu_business()
+        
+        elif (business == 7):
             print("\x1b[2J\x1b[1;1H")
             exit()
 
@@ -240,8 +232,8 @@ def menu_driver():
     print("\x1b[2J\x1b[1;1H")
     print("\n=== Olá, seja bem vindo ao painel | Setor: Motorista ===\n")
     print("[ 1 ] Visualizar rotas")
-    print("[ 2 ] Visualizar veiculos")
-    print("[ 3 ] Acessar área de rotas")
+    print("[ 2 ] Visualizar veículos")
+    print("[ 3 ] Atualizar veículos")
     print("[ 4 ] Acessar área da empresa")
     print("[ 5 ] Voltar ao menu anterior")
     print("[ 6 ] Sair do programa\n")
@@ -304,13 +296,21 @@ def login():
             menu_operational()
         else:
             print("Usuário com cargo não cadastrado")
-    else:
+        
+    elif (user not in list_users):
+        print("\x1b[2J\x1b[1;1H")
+        print("=== Usuário incorreto ===")
         post_login_error()
 
+    elif (password != password_bd):
+        print("\x1b[2J\x1b[1;1H")
+        print("=== Senha incorreta ===")
+        post_login_error()
+        
+    else:
+        error()
+
 def post_login_error():
-    print("\x1b[2J\x1b[1;1H")
-    print("\n=== Usuário ou senha errado ===")
-    time.sleep(1)
     print("\nEscolha uma das opções\n")
     print("[ 1 ] Tentar novamente")
     print("[ 2 ] Recuperar senha")
@@ -500,8 +500,55 @@ def post_error_recovery_account():
     elif (option == 2):
         menu()
 
+def post_action_business():
+    print("\x1b[2J\x1b[1;1H")
+    print("Opções\n")
+    print("[ 1 ] Voltar ao painel de funções")
+    print("[ 2 ] Sair do programa")
+
+    option = int(input("\nO que você deseja? "))
+
+    if (option == 1):
+        menu_business()
+    elif (option == 2):
+        print("\x1b[2J\x1b[1;1H")
+        exit()
+
+def post_action_driver():
+    print("\x1b[2J\x1b[1;1H")
+    print("Opções\n")
+    print("[ 1 ] Voltar ao painel de funções")
+    print("[ 2 ] Sair do programa")
+
+    option = int(input("\nO que você deseja? "))
+
+    if (option == 1):
+        menu_driver()
+    elif (option == 2):
+        print("\x1b[2J\x1b[1;1H")
+        exit()
+
+def post_action_operational():  	
+    print("\x1b[2J\x1b[1;1H")
+    print("Opções\n")
+    print("[ 1 ] Voltar ao painel de funções")
+    print("[ 2 ] Sair do programa")
+
+    option = int(input("\nO que você deseja? "))
+
+    if (option == 1):
+        menu_operational()
+    elif (option == 2):
+        print("\x1b[2J\x1b[1;1H")
+        exit()
+
 def invalid_option():
     print("\x1b[2J\x1b[1;1H")
     print("Opção inválida")
+
+def error():
+    print("=== Ocorreu um erro no programa ===")
+    time.sleep(3)
+    menu()
 
 # End - Code written by Lui Richard - [Github: https://github.com/luideveloper]
