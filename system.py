@@ -175,14 +175,16 @@ def menu_business():
             invalid_option()
 
     elif (option == 4):
+        print("\x1b[2J\x1b[1;1H")
         print("=== ÁREA EMPRESA ===")
         print("\n[ 1 ] Cadastrar conta")
         print("[ 2 ] Recuperar conta")
         print("[ 3 ] Atualizar cadastro")
         print("[ 4 ] Visualizar relatório")
         print("[ 5 ] Excluir contas")
-        print("[ 6 ] Voltar ao menu anterior")
-        print("[ 7 ] Sair do programa\n")
+        print("[ 6 ] Visualizar funcionários")
+        print("[ 7 ] Voltar ao menu anterior")
+        print("[ 8 ] Sair do programa\n")
 
         business = int(input("Digite o número da opção que deseja: "))
 
@@ -208,9 +210,14 @@ def menu_business():
 
         elif (business == 6):
             print("\x1b[2J\x1b[1;1H")
-            menu_business()
+            read_employee()
+            post_action_business()
         
         elif (business == 7):
+            print("\x1b[2J\x1b[1;1H")
+            menu_business()
+        
+        elif ():
             print("\x1b[2J\x1b[1;1H")
             exit()
 
@@ -306,7 +313,7 @@ def login():
         print("\x1b[2J\x1b[1;1H")
         print("=== Senha incorreta ===")
         post_login_error()
-        
+
     else:
         error()
 
