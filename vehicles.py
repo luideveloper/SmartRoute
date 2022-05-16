@@ -69,6 +69,7 @@ def trafic_ticket():
     plate = input("Qual a placa do veículo?:")
     ticket_hour = input("Qual hora a multa foi feita?:")
     route = input("Qual foi a rota em que o motorista foi mutado")
+    route = route.upper()
     driver_name = input("Nome do motorista:")
     driver_name = driver_name.upper()
     ticketadd = "..."
