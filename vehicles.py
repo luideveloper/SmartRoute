@@ -22,7 +22,7 @@ def register_vehicles():
 def read_vehicles():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    query = "SELECT plate, vehicle_type, model, date, km_now FROM vehicles;"
+    query = "SELECT plate, vehicle_type, model, date, km_initial, km_now FROM vehicles;"
     cursor.execute(query)
     print("\n== VEÍCULOS CADASTRADOS ==\n")
     for linha in cursor.fetchall():
@@ -30,7 +30,8 @@ def read_vehicles():
         print("Tipo:", linha[1])
         print("Modelo:", linha[2])
         print("Data:", linha[3])
-        print("Quilômetro:", linha[4])
+        print("Quilômetro inicial:", linha[4])
+        print("Quilômetro atual:", linha[5])
         print(" -------------------")
     con.commit()
     con.close()
@@ -59,5 +60,15 @@ def remove_vehicles():
     con.commit()
     con.close()
 
+
+def trafic_ticket():
+    con = sqlite3.connect("dados.db")
+    cursor = con.cursor()
+    ticket_hour = input("Qual hora a multa foi feita?:")
+    route = input("Qual foi a rota em que o motorista foi mutado")
+    driver_name = input("Nome do motorista:")
+    cursor.execute()
+    con.commit()
+    con.close()
+
 # End - Code written by Erik Dias - [Github: https://github.com/erikdias7]
- 
