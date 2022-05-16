@@ -9,7 +9,9 @@ def register_vehicles():
     cursor = con.cursor()
     plate = input("Digite a placa do veículo: ")
     type = input("Digite o tipo do veículo: ")
+    type = type.upper()
     model = input("Digite o modelo do veículo: ")
+    model = model.upper()
     date = input("Digite a data de fabricação do veículo: ")
     km_initial = ("Digite o quilômetro inicial")
     km_now = input("Digite o quilômetro atual: ")
@@ -55,8 +57,8 @@ def remove_vehicles():
     plate = int(input("Qual placa do veículo você deseja remover? "))
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    consultaDelete = "DELETE FROM vehicle WHERE plate ="
-    cursor.execute(consultaDelete+str(plate))
+    consulteDelete = "DELETE FROM vehicle WHERE plate ="
+    cursor.execute(consulteDelete+str(plate))
     con.commit()
     con.close()
 
@@ -64,10 +66,13 @@ def remove_vehicles():
 def trafic_ticket():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
+    plate = input("Qual a placa do veículo?:")
     ticket_hour = input("Qual hora a multa foi feita?:")
     route = input("Qual foi a rota em que o motorista foi mutado")
     driver_name = input("Nome do motorista:")
-    cursor.execute()
+    driver_name = driver_name.upper()
+    ticketadd = "..."
+    cursor.execute(ticketadd+str(plate,ticket_hour,route,driver_name))
     con.commit()
     con.close()
 
