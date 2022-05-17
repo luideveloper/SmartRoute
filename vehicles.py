@@ -66,15 +66,31 @@ def remove_vehicles():
 def trafic_ticket():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    plate_ = input("Qual a placa do veículo? ")
+    plate = input("Qual a placa do veículo? ")
     ticket_hour = input("Qual hora a multa foi feita? ")
     route = input("Qual foi a rota em que o motorista foi mutado")
     route = route.upper()
     driver_name = input("Nome do motorista:")
     driver_name = driver_name.upper()
-    ticketadd = "INSERT INTO vehicles (plate_,ticket_hour,route,driver_name) VALUES (?,?,?,?);"
-    cursor.execute(ticketadd+str(plate_,ticket_hour,route,driver_name))
+    ticketadd = "INSERT INTO vehicles (plate,ticket_hour,route,driver_name) VALUES (?,?,?,?);"
+    cursor.execute(ticketadd+str(plate,ticket_hour,route,driver_name))
     con.commit()
     con.close()
+
+
+def maintenance():
+    con = sqlite3.connect("dados.db")
+    cursor = con.cursor()
+    plate = input("Qual a placa do veículo? ")
+    model = input("Qual o modelo do veículo? ")
+    type = input("Qual o tipo do veículo? ")
+    problem = input("Qual problema apresenta o veículo? ")
+    absence = input("Quantos dias o veículo ficara ausente? ")
+    price = input("Quanto é o preço da manutenção? ")
+    maintenancebd = "INSERT INTO vehicles (plate,model,type,problem,absence,price) VALUES (?,?,?,?,?,?);"
+    cursor.execute(maintenancebd+str(plate,model,type,problem,absence,price))
+    con.commit()
+    con.close()
+
 
 # End - Code written by Erik Dias - [Github: https://github.com/erikdias7]
