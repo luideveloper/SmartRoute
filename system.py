@@ -149,7 +149,7 @@ def menu_business():
 
         if (routes == 1):
             print("\x1b[2J\x1b[1;1H")
-            register_routes()          
+            create_routes()          
             
         elif (routes == 2):
             print("\x1b[2J\x1b[1;1H")
@@ -190,7 +190,7 @@ def menu_business():
 
         if (business == 1):
             print("\x1b[2J\x1b[1;1H")
-            creat_account()
+            create_account()
             
         elif (business == 2):
             print("\x1b[2J\x1b[1;1H")
@@ -343,9 +343,9 @@ def create_account():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
 
-    key_company = "1"
+    key_company = "keytest"
 
-    print("\n=== DIGITE A CHAVE DE PERMISSÃO===\n")
+    print("\n=== DIGITE A CHAVE DE PERMISSÃO ===\n")
     print("Para poder criar uma conta e ter acesso no sistema, você precisa fornecer a chave de permissão fornecida pela empresa\n")
 
     key = input("Chave de permissão: ")
@@ -379,21 +379,18 @@ def create_account():
         security_key = input("Chave de segurança: ")
         print("\n---------------------")
 
-        cod_query_read = "SELECT cpf, user, security_key FROM users"
+        cod_query_read = "SELECT cpf, user FROM users"
         cursor.execute(cod_query_read)
 
         list_cpf = []
         list_users = []
-        list_security_key = []
     
         for linha in cursor.fetchall():
             cpf_bd = linha[0]
             user_bd = linha[1]
-            security_key_bd = linha[2]
 
             list_cpf.append(cpf_bd)
             list_users.append(user_bd)
-            list_security_key.append(security_key_bd)
 
         if (cpf in list_cpf):
             print("\x1b[2J\x1b[1;1H")
@@ -403,27 +400,12 @@ def create_account():
             create_account()
 
         elif (user in list_users):
-
-            if (security_key in list_security_key):
-                print("\x1b[2J\x1b[1;1H")
-                print("=== ATENÇÃO ===\n")
-                print("Usuário e chave de segurança já existentes em cadastro, escolha outro usuário e outra chave para finalizar o cadastro")
-                time.sleep(6)
-                create_account()
-            
-            else:
-                print("\x1b[2J\x1b[1;1H")
-                print("=== ATENÇÃO ===\n")
-                print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
-                time.sleep(6)
-                create_account()
-
-        elif (security_key in list_security_key):
             print("\x1b[2J\x1b[1;1H")
             print("=== ATENÇÃO ===\n")
-            print("Chave de segurança já existente em cadastro, escolha outra chave para finalizar o cadastro")
+            print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
             time.sleep(6)
             create_account()
+
         else:
             cod_query_creat = "INSERT INTO users (name,cpf,user,password,office,security_key) VALUES (?,?,?,?,?,?);"
             cursor.execute(cod_query_creat,(name,cpf,user,password,office,security_key))
@@ -460,41 +442,52 @@ def recovery_account():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
 
-    security_key = input("\nQual a chave de segurança da conta que deseja recuperar? ")
+    cpf = input("\nQual o cpf da conta que deseja recuperar? ")
 
-    cod_query_read = "SELECT security_key FROM users WHERE security_key=?;"
-    cursor.execute(cod_query_read,(security_key,))
+    cod_query_read = "SELECT cpf, security_key FROM users WHERE cpf=?;"
+    cursor.execute(cod_query_read,(cpf,))
 
-    list_security_key = []
+    list_cpf = []
     
     for linha in cursor.fetchall():
-        security_key_bd = linha[0]
-        list_security_key.append(security_key_bd)
+        cpf_bd = linha[0]
+        security_key_bd = linha[1]
+        list_cpf.append(cpf_bd)
 
-    if (security_key in list_security_key):
-        print("\n== DIGITE UMA NOVA SENHA ==\n")
-        new_password = input("Senha nova: ")
-        repeat_new_password = input("Repita a senha nova: ")
-        if (new_password == repeat_new_password):
-            cod_query_update = "UPDATE users SET password=? WHERE security_key=?"
-            cursor.execute(cod_query_update,(new_password,security_key))
-            con.commit()
-            print("\n>> SENHA ATUALIZADA COM SUCESSO <<")
-            time.sleep(3)
-            con.close()
-            menu()
+    if (cpf in list_cpf):
+        print("\x1b[2J\x1b[1;1H")
+        security_key = input("\nQual a chave de segurança da conta que deseja recuperar? ")
+        if (security_key == security_key_bd):
+            print("\x1b[2J\x1b[1;1H")
+            print("\n== DIGITE UMA NOVA SENHA ==\n")
+            new_password = input("Senha nova: ")
+            repeat_new_password = input("Repita a senha nova: ")
+            if (new_password == repeat_new_password):
+                cod_query_update = "UPDATE users SET password=? WHERE security_key=?"
+                cursor.execute(cod_query_update,(new_password,security_key))
+                con.commit()
+                print("\n>> SENHA ATUALIZADA COM SUCESSO <<")
+                time.sleep(3)
+                con.close()
+                menu()
+            else:
+                post_error_recovery_account()
         else:
-            post_error_recovery_account()
+            print("\x1b[2J\x1b[1;1H")
+            print("Chave de segurança errada")
+            time.sleep(3)
+            menu()
         
     else:
         print("\x1b[2J\x1b[1;1H")
         print("=== ATENÇÃO ===\n")
-        print("Chave de seguranção não encontrada, por favor informe a chave correta")
+        print("Cadastro não encontrado, por favor informe o CPF correto")
         time.sleep(4)
         recovery_account()
 
 def post_error_recovery_account():
-    print("\n> As senhas digitadas não são iguais")
+    print("\x1b[2J\x1b[1;1H")
+    print("\n=== As senhas digitadas não são iguais ===\n")
     time.sleep(2)
     print("\Deseja digitar novamente?\n")
     print("[ 1 ] sim")

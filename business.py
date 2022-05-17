@@ -18,4 +18,10 @@ def read_employee():
     time.sleep(15)
     con.close()
 
+def update_account():
+    print("Ainda em desenvolvimento")
+
+def remove_account():
+    print("Ainda em desenvolvimento")
+
 # End - Code written by Lui Richard - [Github: https://github.com/luideveloper]

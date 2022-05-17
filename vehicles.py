@@ -66,14 +66,14 @@ def remove_vehicles():
 def trafic_ticket():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    plate = input("Qual a placa do veículo?:")
-    ticket_hour = input("Qual hora a multa foi feita?:")
+    plate_ = input("Qual a placa do veículo? ")
+    ticket_hour = input("Qual hora a multa foi feita? ")
     route = input("Qual foi a rota em que o motorista foi mutado")
     route = route.upper()
     driver_name = input("Nome do motorista:")
     driver_name = driver_name.upper()
-    ticketadd = "..."
-    cursor.execute(ticketadd+str(plate,ticket_hour,route,driver_name))
+    ticketadd = "INSERT INTO vehicles (plate_,ticket_hour,route,driver_name) VALUES (?,?,?,?);"
+    cursor.execute(ticketadd+str(plate_,ticket_hour,route,driver_name))
     con.commit()
     con.close()
 
