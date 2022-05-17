@@ -1,3 +1,5 @@
+# Start - Code written by José Gabriel - [Github: https://github.com/brak3]
+
 import sqlite3
 import time
 
@@ -9,3 +11,5 @@ def update_routes():
     print("em desenvolvimento")
 def remove_routes():
     print("em desenvolvimento")
+
+# End - Code written by José Gabriel - [Github: https://github.com/brak3]
