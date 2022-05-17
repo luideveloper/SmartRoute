@@ -286,6 +286,7 @@ def login():
 
     print("\n=== LOGIN ===")
     user = input("\nDigite seu usuário: ")
+    user = user.replace(" ", "").lower()
     password = input("Digite sua senha: ")
 
     cod_query_read_2 = "SELECT user, password, office FROM users WHERE user=?;"
@@ -375,6 +376,7 @@ def create_account():
         name = input("Nome: ")
         cpf = input("CPF: ")
         user = input("Usuário: ")
+        user = user.replace(" ", "").lower()
         password = input("Senha: ")
         security_key = input("Chave de segurança: ")
         print("\n---------------------")
