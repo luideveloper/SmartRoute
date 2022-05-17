@@ -83,8 +83,11 @@ def maintenance():
     cursor = con.cursor()
     plate = input("Qual a placa do veículo? ")
     model = input("Qual o modelo do veículo? ")
+    model = model.upper()
     type = input("Qual o tipo do veículo? ")
+    type = type.upper()
     problem = input("Qual problema apresenta o veículo? ")
+    problem = problem.upper()
     absence = input("Quantos dias o veículo ficara ausente? ")
     price = input("Quanto é o preço da manutenção? ")
     maintenancebd = "INSERT INTO vehicles (plate,model,type,problem,absence,price) VALUES (?,?,?,?,?,?);"
