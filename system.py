@@ -375,6 +375,7 @@ def create_account():
         print("\x1b[2J\x1b[1;1H")
         name = input("Nome: ")
         cpf = input("CPF: ")
+        cpf = cpf.replace(" ", "").lower()
         user = input("Usuário: ")
         user = user.replace(" ", "").lower()
         password = input("Senha: ")
@@ -445,6 +446,7 @@ def recovery_account():
     cursor = con.cursor()
 
     cpf = input("\nQual o cpf da conta que deseja recuperar? ")
+    cpf = cpf.replace(" ", "").lower()
 
     cod_query_read = "SELECT cpf, security_key FROM users WHERE cpf=?;"
     cursor.execute(cod_query_read,(cpf,))
