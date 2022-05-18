@@ -47,7 +47,7 @@ def update_vehicles():
     newkm = input("Qual a quilometragem atual? ")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    consultaAtualizar = "UPDATE cliente SET newplate=?, typevehicle_newkm=?, newkm=?, WHERE plate1=?"
+    consultaAtualizar = "UPDATE vehicles SET newplate=?, typevehicle_newkm=?, newkm=?, WHERE plate1=?"
     cursor.execute(consultaAtualizar,(newplate,typevehicle_newkm,newkm,plate1))
     con.commit()
     con.close()
@@ -93,6 +93,24 @@ def maintenance():
     price = input("Quanto é o preço da manutenção? ")
     maintenancebd = "INSERT INTO vehicles (plate,model,type,problem,absence,price) VALUES (?,?,?,?,?,?);"
     cursor.execute(maintenancebd+str(plate,model,type,problem,absence,price))
+    con.commit()
+    con.close()
+
+
+def update_maintenance():
+    plate = input("Qual a placa do veículo? ")
+    model = input("Qual o modelo do veículo? ")
+    model = model.upper()
+    type = input("Qual o tipo do veículo? ")
+    type = type.upper()
+    new_problem = input("Qual novo problema apresenta o veículo? ")
+    new_problem = new_problem.upper()
+    new_absence = input("Quantos dias o veículo ficara ausente? ")
+    new_price = input("Quanto é o preço da manutenção? ")
+    con = sqlite3.connect("dados.db")
+    cursor = con.cursor()
+    consultaAtualizar = "UPDATE vehicles SET plate=?, model=?, type=?, new_problem=?, new_absence=?, new_price=?, WHERE plate=?"
+    cursor.execute(consultaAtualizar,(plate,model,type,new_problem,new_absence,new_price))
     con.commit()
     con.close()
 
