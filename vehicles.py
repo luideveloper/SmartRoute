@@ -58,7 +58,7 @@ def remove_vehicles():
     plate = int(input("Qual placa do veículo você deseja remover? "))
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    consulteDelete = "DELETE FROM vehicle WHERE plate ="
+    consulteDelete = "DELETE FROM vehicles WHERE plate ="
     cursor.execute(consulteDelete+str(plate))
     con.commit()
     con.close()
