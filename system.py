@@ -11,6 +11,9 @@ from business import *
 def start_bd():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
+
+    # Checking and creating tables in BD
+
     cursor.execute("CREATE TABLE IF NOT EXISTS users (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), user VARCHAR(200), password VARCHAR(200), office VARCHAR(100), type_license VARCHAR(100), validity_license VARCHAR(100), security_key VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS driver (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), type_license VARCHAR(100), validity_license VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS vehicles (reg integer, plate VARCHAR(200), vehicles_type VARCHAR(200), model VARCHAR(200), date VARCHAR(200), km_inital VARCHAR(200), km_now VARCHAR(200), PRIMARY KEY (reg));")
@@ -27,19 +30,26 @@ def menu():
     print("[ 3 ] Recuperar conta")
     print("[ 4 ] Sair do programa")
 
-    option = int(input("\nO que você deseja? "))
+    try:
 
-    if (option == 1):
-        login()
-    elif (option == 2):
-        create_account()
-    elif (option == 3):
-        recovery_account()
-    elif (option == 4):
-        print("\x1b[2J\x1b[1;1H")
-        exit()
-    else:
-        invalid_option()
+        option = int(input("\nO que você deseja? "))
+
+        if (option == 1):
+            login()
+        elif (option == 2):
+            create_account()
+        elif (option == 3):
+            recovery_account()
+        elif (option == 4):
+            print("\x1b[2J\x1b[1;1H")
+            exit()
+        else:
+            invalid_option()
+            time.sleep(2)
+            menu()
+    
+    except ValueError:
+        value_error_input()
 
 def menu_business():
     print("\x1b[2J\x1b[1;1H")
@@ -387,7 +397,7 @@ def create_account():
 
         list_cpf = []
         list_users = []
-    
+        
         for linha in cursor.fetchall():
             cpf_bd = linha[0]
             user_bd = linha[1]
@@ -395,10 +405,19 @@ def create_account():
             list_cpf.append(cpf_bd)
             list_users.append(user_bd)
 
+        # Start - Registration Validations
+
         if (cpf in list_cpf):
             print("\x1b[2J\x1b[1;1H")
             print("=== ATENÇÃO ===\n")
             print("CPF existente em cadastro, cadastre outro CPF para finalizar o cadastro")
+            time.sleep(6)
+            create_account()
+        
+        elif (len(cpf) > 11 or len(cpf) < 11):
+            print("\x1b[2J\x1b[1;1H")
+            print("=== ATENÇÃO ===\n")
+            print(">> Quantidade de caracteres do CPF inválida")
             time.sleep(6)
             create_account()
 
@@ -408,6 +427,8 @@ def create_account():
             print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
             time.sleep(6)
             create_account()
+
+        # End - Registration Validations
 
         else:
             cod_query_creat = "INSERT INTO users (name,cpf,user,password,office,security_key) VALUES (?,?,?,?,?,?);"
@@ -478,9 +499,22 @@ def recovery_account():
                 post_error_recovery_account()
         else:
             print("\x1b[2J\x1b[1;1H")
-            print("Chave de segurança errada")
+            print("=== ATENÇÃO ==\n")
+            print(">> Chave de segurança errada")
             time.sleep(3)
-            menu()
+            print("\x1b[2J\x1b[1;1H")
+            print("Escolha uma das opções:\n")
+            print("[ 1 ] Tentar novamente")
+            print("[ 2 ] Voltar ao menu principal")
+
+            option = int(input("\nO que você deseja? "))
+
+            if (option == 1):
+                recovery_account()
+            elif (option == 2):
+                menu()
+            else:
+                invalid_option()
         
     else:
         print("\x1b[2J\x1b[1;1H")
@@ -493,7 +527,7 @@ def post_error_recovery_account():
     print("\x1b[2J\x1b[1;1H")
     print("\n=== As senhas digitadas não são iguais ===\n")
     time.sleep(2)
-    print("\Deseja digitar novamente?\n")
+    print("Deseja digitar novamente?\n")
     print("[ 1 ] sim")
     print("[ 2 ] não")
 
@@ -548,11 +582,21 @@ def post_action_operational():
 
 def invalid_option():
     print("\x1b[2J\x1b[1;1H")
-    print("Opção inválida")
+    print("=== ATENÇÃO ===\n")
+    print(">> Opção inválida")
 
 def error():
-    print("=== Ocorreu um erro no programa ===")
-    time.sleep(3)
+    print("\x1b[2J\x1b[1;1H")
+    print("=== ATENÇÃO ===\n")
+    print(">> Ocorreu um erro no programa")
+    time.sleep(4)
+    menu()
+
+def value_error_input():
+    print("\x1b[2J\x1b[1;1H")
+    print("=== ATENÇÃO ===\n")
+    print(">> O valor digitado de ser um número")
+    time.sleep(4)
     menu()
 
 # End - Code written by Lui Richard - [Github: https://github.com/luideveloper]

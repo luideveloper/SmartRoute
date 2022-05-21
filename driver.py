@@ -92,7 +92,8 @@ def update_driver():
     cursor = con.cursor()
 
     cpf = input("\nQual o cpf do funcionário que deseja atualizar os dados? ")
-
+    cpf = cpf.replace(" ", "").lower()
+    
     cod_query_read = "SELECT cpf FROM users"
     cursor.execute(cod_query_read)
 
