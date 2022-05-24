@@ -33,6 +33,8 @@ def menu():
     try:
 
         option = int(input("\nO que você deseja? "))
+        option = int(input("\nO que você deseja? "))
+        option = int(input("\nO que você deseja? "))
 
         if (option == 1):
             login()
