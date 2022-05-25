@@ -3,7 +3,6 @@
 import sqlite3
 import time
 
-from system import *
 from driver import *
 
 def read_employee():
@@ -38,7 +37,7 @@ def update_account():
         cpf = input("\nQual o cpf da conta que deseja atualizar? ")
         cpf = cpf.replace(" ", "").lower()
 
-        cod_query_read = "SELECT cpf, security_key FROM users WHERE cpf=?;"
+        cod_query_read = "SELECT cpf FROM users WHERE cpf=?;"
         cursor.execute(cod_query_read,(cpf,))
 
         list_cpf = []
@@ -49,49 +48,39 @@ def update_account():
             list_cpf.append(cpf_bd)
 
         if (cpf in list_cpf):
-            print("\x1b[2J\x1b[1;1H")
-            security_key = input("\nQual a chave de segurança da conta que deseja recuperar? ")
-            if (security_key == security_key_bd):
-                print("\x1b[2J\x1b[1;1H")
-                print("\n== DIGITE UMA NOVA SENHA ==\n")
-                new_password = input("Senha nova: ")
-                repeat_new_password = input("Repita a senha nova: ")
-                if (new_password == repeat_new_password):
-                    cod_query_update = "UPDATE users SET password=? WHERE security_key=?"
-                    cursor.execute(cod_query_update,(new_password,security_key))
-                    con.commit()
-                    print("\n>> SENHA ATUALIZADA COM SUCESSO <<")
-                    time.sleep(3)
-                    con.close()
-                    menu()
-                else:
-                    post_error_recovery_account()
-            else:
-                print("\x1b[2J\x1b[1;1H")
-                print("=== ATENÇÃO ==\n")
-                print(">> Chave de segurança errada")
+            print("\n== DIGITE OS NOVOS DADOS ==\n")
+            new_name = input("Nome: ")
+            new_cpf = input("CPF: ")
+            new_cpf = new_cpf.replace(" ", "").lower()
+            new_user = input("Usuário: ")
+            new_user = new_user.replace(" ", "").lower()
+            new_password = input("Senha nova: ")
+            repeat_new_password = input("Repita a senha nova: ")
+            new_security_key = input("Chave de segurança: ")
+
+            if (new_password == repeat_new_password):
+                cod_query_update = "UPDATE users SET name=?, cpf=?, user=?, password=?, security_key=? WHERE security_key=?"
+                cursor.execute(cod_query_update,(new_name,new_cpf,new_user,new_password,new_security_key,cpf))
+                con.commit()
+                print("\n>> CADASTRO ATUALIZADA COM SUCESSO <<")
                 time.sleep(3)
-                print("\x1b[2J\x1b[1;1H")
-                print("Escolha uma das opções:\n")
-                print("[ 1 ] Tentar novamente")
-                print("[ 2 ] Voltar ao menu principal")
+                con.close()
+            else:
+                post_error_recovery_account()
+        else:
+            print("\x1b[2J\x1b[1;1H")
+            print("=== Funcionário não encontrado ===")
+            time.sleep(5)
+            con.close()
 
-                option = int(input("\nO que você deseja? "))
-
-                if (option == 1):
-                    recovery_account()
-                elif (option == 2):
-                    menu()
-                else:
-                    invalid_option()
     elif (option == 2):
         update_driver()
+
     elif (option == 3):
-        print("\x1b[2J\x1b[1;1H")
-        cpf = input("\nQual o cpf do funcionário que deseja atualizar os dados? ")
+        cpf = input("\nQual o cpf da conta que deseja atualizar? ")
         cpf = cpf.replace(" ", "").lower()
 
-        cod_query_read = "SELECT cpf, security_key FROM users WHERE cpf=?;"
+        cod_query_read = "SELECT cpf FROM users WHERE cpf=?;"
         cursor.execute(cod_query_read,(cpf,))
 
         list_cpf = []
@@ -102,47 +91,33 @@ def update_account():
             list_cpf.append(cpf_bd)
 
         if (cpf in list_cpf):
-            print("\x1b[2J\x1b[1;1H")
-            security_key = input("\nQual a chave de segurança da conta que deseja recuperar? ")
-            if (security_key == security_key_bd):
-                print("\x1b[2J\x1b[1;1H")
-                print("\n== DIGITE UMA NOVA SENHA ==\n")
-                new_password = input("Senha nova: ")
-                repeat_new_password = input("Repita a senha nova: ")
-                if (new_password == repeat_new_password):
-                    cod_query_update = "UPDATE users SET password=? WHERE security_key=?"
-                    cursor.execute(cod_query_update,(new_password,security_key))
-                    con.commit()
-                    print("\n>> SENHA ATUALIZADA COM SUCESSO <<")
-                    time.sleep(3)
-                    con.close()
-                    menu()
-                else:
-                    post_error_recovery_account()
-            else:
-                print("\x1b[2J\x1b[1;1H")
-                print("=== ATENÇÃO ==\n")
-                print(">> Chave de segurança errada")
+            print("\n== DIGITE OS NOVOS DADOS ==\n")
+            new_name = input("Nome: ")
+            new_cpf = input("CPF: ")
+            new_cpf = new_cpf.replace(" ", "").lower()
+            new_user = input("Usuário: ")
+            new_user = new_user.replace(" ", "").lower()
+            new_password = input("Senha nova: ")
+            repeat_new_password = input("Repita a senha nova: ")
+            new_security_key = input("Chave de segurança: ")
+
+            if (new_password == repeat_new_password):
+                cod_query_update = "UPDATE users SET name=?, cpf=?, user=?, password=?, security_key=? WHERE security_key=?"
+                cursor.execute(cod_query_update,(new_name,new_cpf,new_user,new_password,new_security_key,cpf))
+                con.commit()
+                print("\n>> CADASTRO ATUALIZADA COM SUCESSO <<")
                 time.sleep(3)
-                print("\x1b[2J\x1b[1;1H")
-                print("Escolha uma das opções:\n")
-                print("[ 1 ] Tentar novamente")
-                print("[ 2 ] Voltar ao menu principal")
+                con.close()
+            else:
+                post_error_recovery_account()
+        else:
+            print("\x1b[2J\x1b[1;1H")
+            print("=== Funcionário não encontrado ===")
+            time.sleep(5)
+            con.close()
 
-                option = int(input("\nO que você deseja? "))
-
-                if (option == 1):
-                    recovery_account()
-                elif (option == 2):
-                    menu()
-                else:
-                    invalid_option()
     else:
-        invalid_option()
-
-    
-
-    
+        invalid_option() 
 
 def remove_account():
     print("Ainda em desenvolvimento")

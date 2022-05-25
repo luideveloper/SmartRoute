@@ -209,6 +209,8 @@ def menu_business():
         elif (business == 3):
             print("\x1b[2J\x1b[1;1H")
             update_account()
+            time.sleep(4)
+            post_action_business()
         
         elif (business == 4):
             print("\x1b[2J\x1b[1;1H")
@@ -520,8 +522,21 @@ def recovery_account():
         print("\x1b[2J\x1b[1;1H")
         print("=== ATENÇÃO ===\n")
         print("Cadastro não encontrado, por favor informe o CPF correto")
-        time.sleep(4)
-        recovery_account()
+        
+        time.sleep(3)
+        print("\x1b[2J\x1b[1;1H")
+        print("Escolha uma das opções:\n")
+        print("[ 1 ] Tentar novamente")
+        print("[ 2 ] Voltar ao menu principal")
+
+        option = int(input("\nO que você deseja? "))
+
+        if (option == 1):
+            recovery_account()
+        elif (option == 2):
+            menu()
+        else:
+            invalid_option()
 
 def post_error_recovery_account():
     print("\x1b[2J\x1b[1;1H")

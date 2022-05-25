@@ -104,17 +104,27 @@ def update_driver():
         list_cpf.append(cpf_bd)
     
     if (cpf in list_cpf):
-        print("\n=== DIGITE OS DADOS ATUALIZADOS ===\n")
+        print("\n== DIGITE OS NOVOS DADOS ==\n")
         new_name = input("Nome: ")
         new_cpf = input("CPF: ")
+        new_cpf = new_cpf.replace(" ", "").lower()
+        new_user = input("Usuário: ")
+        new_user = new_user.replace(" ", "").lower()
         new_type_license = input("Categoria da Habilitação: ")
         new_validity_license = input("Validade da Habilitação: ")
-        cod_query_update = "UPDATE users SET name=?, cpf=?, type_license=?, validity_license=? WHERE cpf=?"
-        cursor.execute(cod_query_update,(new_name,new_cpf,new_type_license,new_validity_license,cpf))
-        con.commit()
-        print("\n>> MOTORISTA ATUALIZADO COM SUCESSO <<")
-        time.sleep(3)
-        con.close()
+        new_password = input("Senha nova: ")
+        repeat_new_password = input("Repita a senha nova: ")
+        new_security_key = input("Chave de segurança: ")
+
+        if (new_password == repeat_new_password):
+            cod_query_update = "UPDATE users SET name=?, cpf=?, user=?, password=?, type_license=?, validity_license=?, security_key=? WHERE security_key=?"
+            cursor.execute(cod_query_update,(new_name,new_cpf,new_user,new_password,new_type_license,new_validity_license,new_security_key,cpf))
+            con.commit()
+            print("\n>> CADASTRO ATUALIZADA COM SUCESSO <<")
+            time.sleep(3)
+            con.close()
+        else:
+            post_error_recovery_account()
     else:
         print("\x1b[2J\x1b[1;1H")
         print("=== Funcionário não encontrado ===")
