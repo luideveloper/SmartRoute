@@ -34,6 +34,7 @@ def update_account():
     option = int(input("\nQual o seu setor? "))
 
     if (option == 1):
+        print("\x1b[2J\x1b[1;1H")
         cpf = input("\nQual o cpf da conta que deseja atualizar? ")
         cpf = cpf.replace(" ", "").lower()
 
@@ -62,14 +63,14 @@ def update_account():
                 cod_query_update = "UPDATE users SET name=?, cpf=?, user=?, password=?, security_key=? WHERE security_key=?"
                 cursor.execute(cod_query_update,(new_name,new_cpf,new_user,new_password,new_security_key,cpf))
                 con.commit()
-                print("\n>> CADASTRO ATUALIZADA COM SUCESSO <<")
+                print("\n>> CADASTRO ATUALIZADO COM SUCESSO <<")
                 time.sleep(3)
                 con.close()
             else:
                 post_error_recovery_account()
         else:
-            print("\x1b[2J\x1b[1;1H")
-            print("=== Funcionário não encontrado ===")
+            print("=== ATENÇÃO ===\n")
+            print(">> Funcionário não encontrado")
             time.sleep(5)
             con.close()
 
@@ -111,8 +112,8 @@ def update_account():
             else:
                 post_error_recovery_account()
         else:
-            print("\x1b[2J\x1b[1;1H")
-            print("=== Funcionário não encontrado ===")
+            print("=== ATENÇÃO ===\n")
+            print(">> Funcionário não encontrado")
             time.sleep(5)
             con.close()
 

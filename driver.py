@@ -17,51 +17,44 @@ def register_driver():
     validity_license = input("Validade da Habilitação: ")
     security_key = input("Chave de segurança: ")
 
-    cod_query_read = "SELECT cpf, user, security_key FROM users"
+    cod_query_read = "SELECT cpf, user FROM users"
     cursor.execute(cod_query_read)
 
     list_cpf = []
     list_users = []
-    list_security_key = []
-    
+        
     for linha in cursor.fetchall():
         cpf_bd = linha[0]
         user_bd = linha[1]
-        security_key_bd = linha[2]
 
         list_cpf.append(cpf_bd)
         list_users.append(user_bd)
-        list_security_key.append(security_key_bd)
+
+    # Start - Registration Validations
 
     if (cpf in list_cpf):
         print("\x1b[2J\x1b[1;1H")
         print("=== ATENÇÃO ===\n")
         print("CPF existente em cadastro, cadastre outro CPF para finalizar o cadastro")
         time.sleep(6)
-        create_account()
-
-    elif (user in list_users):
-
-        if (security_key in list_security_key):
-            print("\x1b[2J\x1b[1;1H")
-            print("=== ATENÇÃO ===\n")
-            print("Usuário e chave de segurança já existentes em cadastro, escolha outro usuário e outra chave para finalizar o cadastro")
-            time.sleep(6)
-            create_account()
-            
-        else:
-            print("\x1b[2J\x1b[1;1H")
-            print("=== ATENÇÃO ===\n")
-            print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
-            time.sleep(6)
-            create_account()
-
-    elif (security_key in list_security_key):
+        register_driver()
+        
+    elif (len(cpf) > 11 or len(cpf) < 11):
         print("\x1b[2J\x1b[1;1H")
         print("=== ATENÇÃO ===\n")
-        print("Chave de segurança já existente em cadastro, escolha outra chave para finalizar o cadastro")
+        print(">> Quantidade de caracteres do CPF inválida")
         time.sleep(6)
-        create_account()
+        register_driver()
+
+    elif (user in list_users):
+        print("\x1b[2J\x1b[1;1H")
+        print("=== ATENÇÃO ===\n")
+        print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
+        time.sleep(6)
+        register_driver()
+
+    # End - Registration Validations
+
     else:
         cod_query_creat = "INSERT INTO users (name,cpf,user,password,office,type_license,validity_license,security_key) VALUES (?,?,?,?,?,?,?,?);"
         cursor.execute(cod_query_creat,(name,cpf,user,password,office,type_license,validity_license,security_key))
@@ -104,6 +97,7 @@ def update_driver():
         list_cpf.append(cpf_bd)
     
     if (cpf in list_cpf):
+        print("\x1b[2J\x1b[1;1H")
         print("\n== DIGITE OS NOVOS DADOS ==\n")
         new_name = input("Nome: ")
         new_cpf = input("CPF: ")
@@ -117,7 +111,7 @@ def update_driver():
         new_security_key = input("Chave de segurança: ")
 
         if (new_password == repeat_new_password):
-            cod_query_update = "UPDATE users SET name=?, cpf=?, user=?, password=?, type_license=?, validity_license=?, security_key=? WHERE security_key=?"
+            cod_query_update = "UPDATE users SET name=?, cpf=?, user=?, password=?, type_license=?, validity_license=?, security_key=? WHERE cpf=?"
             cursor.execute(cod_query_update,(new_name,new_cpf,new_user,new_password,new_type_license,new_validity_license,new_security_key,cpf))
             con.commit()
             print("\n>> CADASTRO ATUALIZADA COM SUCESSO <<")
@@ -127,7 +121,8 @@ def update_driver():
             post_error_recovery_account()
     else:
         print("\x1b[2J\x1b[1;1H")
-        print("=== Funcionário não encontrado ===")
+        print("=== ATENÇÃO ===\n")
+        print(">> Funcionário não encontrado")
         time.sleep(5)
         con.close()
         

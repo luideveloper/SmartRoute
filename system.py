@@ -346,6 +346,7 @@ def post_login_error():
     elif (option == 3):
         menu()
     elif (option == 4):
+        print("\x1b[2J\x1b[1;1H")
         exit()
     else:
         invalid_option()
