@@ -87,13 +87,16 @@ def update_driver():
     cpf = input("\nQual o cpf do funcionário que deseja atualizar os dados? ")
     cpf = cpf.replace(" ", "").lower()
     
-    cod_query_read = "SELECT cpf FROM users"
+    cod_query_read = "SELECT user, cpf FROM users"
     cursor.execute(cod_query_read)
 
+    list_users = []
     list_cpf = []
     
     for linha in cursor.fetchall():
-        cpf_bd = linha[0]
+        user_bd = linha[0]
+        cpf_bd = linha[1]
+        list_users.append(user_bd)
         list_cpf.append(cpf_bd)
     
     if (cpf in list_cpf):
@@ -109,12 +112,19 @@ def update_driver():
         new_security_key = input("Chave de segurança: ")
 
         if (new_password == repeat_new_password):
-            cod_query_update = "UPDATE users SET name=?, user=?, password=?, type_license=?, validity_license=?, security_key=? WHERE cpf=?"
-            cursor.execute(cod_query_update,(new_name,new_user,new_password,new_type_license,new_validity_license,new_security_key,cpf))
-            con.commit()
-            print("\n>> CADASTRO ATUALIZADO COM SUCESSO <<")
-            time.sleep(3)
-            con.close()
+            if (new_user in list_users):
+                print("\x1b[2J\x1b[1;1H")
+                print("=== ATENÇÃO ===\n")
+                print(">> Usuário indisponível, escolha outro usuário para efetuar a atualização do cadastro")
+                time.sleep(5)
+                con.close()
+            else:
+                cod_query_update = "UPDATE users SET name=?, user=?, password=?, type_license=?, validity_license=?, security_key=? WHERE cpf=?"
+                cursor.execute(cod_query_update,(new_name,new_user,new_password,new_type_license,new_validity_license,new_security_key,cpf))
+                con.commit()
+                print("\n>> CADASTRO ATUALIZADO COM SUCESSO <<")
+                time.sleep(3)
+                con.close()
         else:
             post_error_recovery_account()
     else:

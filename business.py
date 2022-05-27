@@ -26,29 +26,29 @@ def update_account():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
 
-    print("Qual o setor da conta que deseja atualiza?")
-    print("\n[ 1 ] Administrativo")
-    print("[ 2 ] Motorista")
-    print("[ 3 ] Operacional")
+    cpf = input("\nQual o cpf do funcionário que deseja atualizar os dados? ")
+    cpf = cpf.replace(" ", "").lower()
 
-    option = int(input("\nQual o seu setor? "))
+    cod_query_read = "SELECT user, cpf, office FROM users"
+    cursor.execute(cod_query_read)
 
-    if (option == 1):
-        print("\x1b[2J\x1b[1;1H")
-        cpf = input("\nQual o cpf da conta que deseja atualizar? ")
-        cpf = cpf.replace(" ", "").lower()
-
-        cod_query_read = "SELECT cpf FROM users WHERE cpf=?;"
-        cursor.execute(cod_query_read,(cpf,))
-
-        list_cpf = []
+    list_users = []
+    list_cpf = []
         
-        for linha in cursor.fetchall():
-            cpf_bd = linha[0]
-            security_key_bd = linha[1]
-            list_cpf.append(cpf_bd)
+    for linha in cursor.fetchall():
+        user_bd = linha[0]
+        cpf_bd = linha[1]
+        office_bd = linha[2]
+        list_users.append(user_bd)
+        list_cpf.append(cpf_bd)
+    
+    administrativo = "Administrativo"
+    motorista = "Motorista"
+    operacional = "Operacional"
 
-        if (cpf in list_cpf):
+    if (cpf in list_cpf):
+
+        if (office_bd == administrativo):
             print("\n== DIGITE OS NOVOS DADOS ==\n")
             new_name = input("Nome: ")
             new_user = input("Usuário: ")
@@ -58,42 +58,28 @@ def update_account():
             new_security_key = input("Chave de segurança: ")
 
             if (new_password == repeat_new_password):
-                cod_query_update = "UPDATE users SET name=?, user=?, password=?, security_key=? WHERE cpf=?"
-                cursor.execute(cod_query_update,(new_name,new_user,new_password,new_security_key,cpf))
-                con.commit()
-                print("\n>> CADASTRO ATUALIZADO COM SUCESSO <<")
-                time.sleep(3)
-                con.close()
+                if (new_user in list_users):
+                    print("\x1b[2J\x1b[1;1H")
+                    print("=== ATENÇÃO ===\n")
+                    print(">> Usuário indisponível, escolha outro usuário para efetuar a atualização do cadastro")
+                    time.sleep(5)
+                    con.close()
+                else:
+                    cod_query_update = "UPDATE users SET name=?, user=?, password=?, security_key=? WHERE cpf=?"
+                    cursor.execute(cod_query_update,(new_name,new_user,new_password,new_security_key,cpf))
+                    con.commit()
+                    print("\n>> CADASTRO ATUALIZADO COM SUCESSO <<")
+                    time.sleep(3)
+                    con.close()
             else:
                 post_error_recovery_account()
-        else:
-            print("=== ATENÇÃO ===\n")
-            print(">> Funcionário não encontrado")
-            time.sleep(5)
-            con.close()
 
-    elif (option == 2):
-        update_driver()
+        elif (office_bd == motorista):
+            update_driver()
 
-    elif (option == 3):
-        cpf = input("\nQual o cpf da conta que deseja atualizar? ")
-        cpf = cpf.replace(" ", "").lower()
-
-        cod_query_read = "SELECT cpf FROM users WHERE cpf=?;"
-        cursor.execute(cod_query_read,(cpf,))
-
-        list_cpf = []
-        
-        for linha in cursor.fetchall():
-            cpf_bd = linha[0]
-            security_key_bd = linha[1]
-            list_cpf.append(cpf_bd)
-
-        if (cpf in list_cpf):
+        elif (office_bd == operacional):
             print("\n== DIGITE OS NOVOS DADOS ==\n")
             new_name = input("Nome: ")
-            new_cpf = input("CPF: ")
-            new_cpf = new_cpf.replace(" ", "").lower()
             new_user = input("Usuário: ")
             new_user = new_user.replace(" ", "").lower()
             new_password = input("Senha nova: ")
@@ -101,22 +87,33 @@ def update_account():
             new_security_key = input("Chave de segurança: ")
 
             if (new_password == repeat_new_password):
-                cod_query_update = "UPDATE users SET name=?, cpf=?, user=?, password=?, security_key=? WHERE security_key=?"
-                cursor.execute(cod_query_update,(new_name,new_cpf,new_user,new_password,new_security_key,cpf))
-                con.commit()
-                print("\n>> CADASTRO ATUALIZADA COM SUCESSO <<")
-                time.sleep(3)
-                con.close()
+                if (new_user in list_users):
+                    print("\x1b[2J\x1b[1;1H")
+                    print("=== ATENÇÃO ===\n")
+                    print(">> Usuário indisponível, escolha outro usuário para efetuar a atualização do cadastro")
+                    time.sleep(5)
+                    con.close()
+                else:
+                    cod_query_update = "UPDATE users SET name=?, user=?, password=?, security_key=? WHERE cpf=?"
+                    cursor.execute(cod_query_update,(new_name,new_user,new_password,new_security_key,cpf))
+                    con.commit()
+                    print("\n>> CADASTRO ATUALIZADO COM SUCESSO <<")
+                    time.sleep(3)
+                    con.close()
             else:
                 post_error_recovery_account()
+
         else:
+            print("\x1b[2J\x1b[1;1H")
             print("=== ATENÇÃO ===\n")
-            print(">> Funcionário não encontrado")
+            print(">> Funcionário com cargo não identificado")
             time.sleep(5)
             con.close()
-
     else:
-        invalid_option() 
+        print("=== ATENÇÃO ===\n")
+        print(">> Funcionário não encontrado")
+        time.sleep(5)
+        con.close()
 
 def remove_account():
     print("\x1b[2J\x1b[1;1H")
