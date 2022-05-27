@@ -100,8 +100,6 @@ def update_driver():
         print("\x1b[2J\x1b[1;1H")
         print("\n== DIGITE OS NOVOS DADOS ==\n")
         new_name = input("Nome: ")
-        new_cpf = input("CPF: ")
-        new_cpf = new_cpf.replace(" ", "").lower()
         new_user = input("Usuário: ")
         new_user = new_user.replace(" ", "").lower()
         new_type_license = input("Categoria da Habilitação: ")
@@ -111,10 +109,10 @@ def update_driver():
         new_security_key = input("Chave de segurança: ")
 
         if (new_password == repeat_new_password):
-            cod_query_update = "UPDATE users SET name=?, cpf=?, user=?, password=?, type_license=?, validity_license=?, security_key=? WHERE cpf=?"
-            cursor.execute(cod_query_update,(new_name,new_cpf,new_user,new_password,new_type_license,new_validity_license,new_security_key,cpf))
+            cod_query_update = "UPDATE users SET name=?, user=?, password=?, type_license=?, validity_license=?, security_key=? WHERE cpf=?"
+            cursor.execute(cod_query_update,(new_name,new_user,new_password,new_type_license,new_validity_license,new_security_key,cpf))
             con.commit()
-            print("\n>> CADASTRO ATUALIZADA COM SUCESSO <<")
+            print("\n>> CADASTRO ATUALIZADO COM SUCESSO <<")
             time.sleep(3)
             con.close()
         else:
@@ -125,18 +123,5 @@ def update_driver():
         print(">> Funcionário não encontrado")
         time.sleep(5)
         con.close()
-        
-def remove_driver():
-    print("\x1b[2J\x1b[1;1H")
-    print("\n== REMOVER CADASTRO ==\n")
-    cpf = int(input("\nQual o cpf do funcionário que deseja remover? "))
-    con = sqlite3.connect("dados.db")
-    cursor = con.cursor()
-    cod_query_remove = "DELETE FROM users WHERE cpf ="
-    cursor.execute(cod_query_remove+str(cpf))
-    con.commit()
-    print("\n>> CADASTRO REMOVIDO COM SUCESSO <<")
-    time.sleep(3)
-    con.close()
 
 # End - Code written by Lui Richard - [Github: https://github.com/luideveloper]

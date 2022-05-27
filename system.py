@@ -92,7 +92,7 @@ def menu_business():
         
         elif (driver == 4):
             print("\x1b[2J\x1b[1;1H")
-            remove_driver()
+            remove_account()
             post_action_business()
         
         elif (driver == 5):
@@ -219,6 +219,7 @@ def menu_business():
         elif (business == 5):
             print("\x1b[2J\x1b[1;1H")
             remove_account()
+            post_action_business()
 
         elif (business == 6):
             print("\x1b[2J\x1b[1;1H")
@@ -553,6 +554,25 @@ def post_error_recovery_account():
         recovery_account()
     elif (option == 2):
         menu()
+
+def post_action_create_account():
+    print("\x1b[2J\x1b[1;1H")
+    print("Opções\n")
+    print("[ 1 ] Tentar novamente")
+    print("[ 2 ] Voltar ao painel de funções")
+    print("[ 3 ] Sair do programa")
+
+    option = int(input("\nO que você deseja? "))
+
+    if (option == 1):
+        menu()
+    elif (option == 2):
+        menu()
+    elif (option == 3):
+        print("\x1b[2J\x1b[1;1H")
+        exit()
+    else:
+        invalid_option()
 
 def post_action_business():
     print("\x1b[2J\x1b[1;1H")
