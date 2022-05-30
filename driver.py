@@ -37,21 +37,21 @@ def register_driver():
         print("=== ATENÇÃO ===\n")
         print("CPF existente em cadastro, cadastre outro CPF para finalizar o cadastro")
         time.sleep(6)
-        register_driver()
+        con.close()
         
     elif (len(cpf) > 11 or len(cpf) < 11):
         print("\x1b[2J\x1b[1;1H")
         print("=== ATENÇÃO ===\n")
         print(">> Quantidade de caracteres do CPF inválida")
         time.sleep(6)
-        register_driver()
+        con.close()
 
     elif (user in list_users):
         print("\x1b[2J\x1b[1;1H")
         print("=== ATENÇÃO ===\n")
         print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
         time.sleep(6)
-        register_driver()
+        con.close()
 
     # End - Registration Validations
 
@@ -71,7 +71,7 @@ def read_driver():
     cursor.execute(cod_query_read,(office,))
     print("\n== MOTORISTAS CADASTRADOS ==\n")
     for linha in cursor.fetchall():
-        print("Nome:", linha[0])
+        print("\nNome:", linha[0])
         print("CPF:", linha[1])
         print("Categoria da Habilitação:", linha[2])
         print("Validade da Habilitação:", linha[3])

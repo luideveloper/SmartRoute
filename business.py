@@ -110,6 +110,7 @@ def update_account():
             time.sleep(5)
             con.close()
     else:
+        print("\x1b[2J\x1b[1;1H")
         print("=== ATENÇÃO ===\n")
         print(">> Funcionário não encontrado")
         time.sleep(5)
@@ -118,26 +119,32 @@ def update_account():
 def remove_account():
     print("\x1b[2J\x1b[1;1H")
     print("\n== REMOVER CADASTRO ==\n")
-    cpf = int(input("Qual o cpf do cliente a remover? "))
+    cpf = input("Qual o cpf do funcionário que deseja remover? ")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
 
-    cod_query_read = "SELECT name, cpf, user, office FROM users WHERE cpf=?;"
-    cursor.execute(cod_query_read,(cpf,))
-    print("\x1b[2J\x1b[1;1H")
-    print("> CADASTRO")
+    cod_query_read = "SELECT cpf FROM users"
+    cursor.execute(cod_query_read)
+
+    list_cpf = []
+        
     for linha in cursor.fetchall():
-        print("\nNome:", linha[0])
-        print("CPF:", linha[1])
-        print("Usuário:", linha[2])
-        print("Setor:", linha[3])
-        print("\n-------------------")
-    
-    cod_query_remove = "DELETE FROM users WHERE cpf ="
-    cursor.execute(cod_query_remove+str(cpf))
-    con.commit()
-    print("\n>> CADASTRO REMOVIDO DO SISTEMA <<")
-    time.sleep(3)
-    con.close()
+        cpf_bd = linha[0]
+        list_cpf.append(cpf_bd)
+
+    if (cpf in list_cpf):
+        cod_query_remove = "DELETE FROM users WHERE cpf ="
+        cursor.execute(cod_query_remove+str(cpf))
+        con.commit()
+        print("\n>> CADASTRO REMOVIDO DO SISTEMA <<")
+        time.sleep(3)
+        con.close()
+    else:
+        print("\x1b[2J\x1b[1;1H")
+        print("=== ATENÇÃO ===\n")
+        print(">> Cadastro não encontrado")
+        time.sleep(3)
+        con.close()
+
 
 # End - Code written by Lui Richard - [Github: https://github.com/luideveloper]
