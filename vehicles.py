@@ -10,9 +10,7 @@ def register_vehicles():
     cursor = con.cursor()
     plate = input("Digite a placa do veículo: ")
     type = input("Digite o tipo do veículo: ")
-    type = type.upper()
     model = input("Digite o modelo do veículo: ")
-    model = model.upper()
     date = input("Digite a data de fabricação do veículo: ")
     km_initial = ("Digite o quilômetro inicial")
     km_now = input("Digite o quilômetro atual: ")
@@ -70,26 +68,12 @@ def trafic_ticket():
     plate = input("Qual a placa do veículo? ")
     ticket_hour = input("Qual hora a multa foi feita? ")
     route = input("Qual foi a rota em que o motorista foi multado")
-    route = route.upper()
     driver_name = input("Nome do motorista:")
-    driver_name = driver_name.upper()
     ticketadd = "INSERT INTO vehicles (plate,ticket_hour,route,driver_name) VALUES (?,?,?,?);"
     cursor.execute(ticketadd+str(plate,ticket_hour,route,driver_name))
     con.commit()
     con.close()
 
-
-def remove_ticket():
-    con = sqlite3.connect("dados.db")
-    cursor = con.cursor()
-    plate = input("Qual a placa do veículo multado? ")
-    ticket_hour = input("Qual hora a multa foi feita? ")
-    route = input("Qual foi a rota em que o motorista foi multado")
-    route = route.upper()
-    consulteDeletet = "DELETE FROM vehicles WHERE plate ticket_hour route ="
-    cursor.execute(consulteDeletet+str(plate,ticket_hour,route))
-    con.commit()
-    con.close()
 
 
 def maintenance():
@@ -97,11 +81,8 @@ def maintenance():
     cursor = con.cursor()
     plate = input("Qual a placa do veículo? ")
     model = input("Qual o modelo do veículo? ")
-    model = model.upper()
     type = input("Qual o tipo do veículo? ")
-    type = type.upper()
     problem = input("Qual problema apresenta o veículo? ")
-    problem = problem.upper()
     absence = input("Quantos dias o veículo ficara ausente? ")
     price = input("Quanto é o preço da manutenção? ")
     maintenancebd = "INSERT INTO vehicles (plate,model,type,problem,absence,price) VALUES (?,?,?,?,?,?);"
@@ -113,11 +94,8 @@ def maintenance():
 def update_maintenance():
     plate = input("Qual a placa do veículo? ")
     model = input("Qual o modelo do veículo? ")
-    model = model.upper()
     type = input("Qual o tipo do veículo? ")
-    type = type.upper()
     new_problem = input("Qual novo problema apresenta o veículo? ")
-    new_problem = new_problem.upper()
     new_absence = input("Quantos dias o veículo ficara ausente? ")
     new_price = input("Quanto é o preço da manutenção? ")
     con = sqlite3.connect("dados.db")
