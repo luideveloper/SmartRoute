@@ -39,14 +39,14 @@ def read_vehicles():
 
 
 def update_vehicles():
-    plate1 = input("Qual placa você quer atualizar? ")
+    plate = input("Qual placa você quer atualizar? ")
     newplate = input("Nova placa: ")
     typevehicle_newkm = input("Qual veículo vc deseja atualizar o quilômetro? ")
     newkm = input("Qual a quilometragem atual? ")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    consultaAtualizar = "UPDATE vehicles SET newplate=?, typevehicle_newkm=?, newkm=?, WHERE plate1=?"
-    cursor.execute(consultaAtualizar,(newplate,typevehicle_newkm,newkm,plate1))
+    consultaAtualizar = "UPDATE vehicles SET newplate=?, typevehicle_newkm=?, newkm=?, WHERE plate=?"
+    cursor.execute(consultaAtualizar,(newplate,typevehicle_newkm,newkm,plate))
     con.commit()
     con.close()
 
