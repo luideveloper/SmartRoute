@@ -15,14 +15,17 @@ def create_routes():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     option = int(input("\nDeseja adicionar alguma parada na rota? \n(1)Sim, uma parada \n(2)Sim, duas paradas \n(3)Não"))
+
     if (option == 3):
         reg = int(input("Informe o código da rota (!Somente números!"))
         route_start = input("Informe o inicio da rota")
         route_start = route_start.upper()
         route_end = input("Informe o destino final da rota")
         route_end = route_end.upper()
-        table_insert = "INSERT into routes (reg, route_start, route_end) values (?, ?, ?);"
-        cursor.execute(table_insert,(reg, route_start, route_end))
+        stop_1 = "X"
+        stop_2 = "X"
+        table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?;)"
+        cursor.execute(table_insert,(reg, route_start, stop_1, stop_2, route_end))
         con.commit()
         con.close()
     
@@ -47,10 +50,11 @@ def create_routes():
         route_start = route_start.upper()
         stop_1 = input("Informe a primeira parada")
         stop_1 = stop_1.upper()
+        stop_2 = "X"
         route_end = input("Informe o destino final da rota")
         route_end = route_end.upper()
-        table_insert = "INSERT into routes (reg, route_start, stop_1, route_end) values (?, ?, ?, ?;)"
-        cursor.execute(table_insert,(reg, route_start, stop_1, route_end))
+        table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?;)"
+        cursor.execute(table_insert,(reg, route_start, stop_1, stop_2, route_end))
         con.commit()
         con.close()
 
