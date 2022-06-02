@@ -73,7 +73,18 @@ def read_routes():
     con.close
     
 def update_routes():
-    print("em desenvolvimento")
+    con = sqlite3.connect("dados.db")
+    cursor = con.cursor()
+    read_routes()
+    reg = input("Qual rota você deseja editar ?")
+    new_route_start = ("Informe o novo inicio da rota. ")
+    new_stop_1 = ("Informe a nova parada, digite X para valores nulos.")
+    new_stop_2 = ("Informe a nova segunda parada, digite X para valores nulos.")
+    new_route_end = ("Informe o novo destino final da rota.")
+    routes_update = "UPDATE routes SET route_start, stop_1, stop_2, route_end, WHERE reg=?"
+    cursor.execute(routes_update,(new_route_start, new_stop_1, new_stop_2, new_route_end,reg))
+    con.commit()
+    con.close()
 
 def remove_routes():
     con = sqlite3.connect("dados.db")
