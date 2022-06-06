@@ -61,7 +61,7 @@ def create_routes():
 def read_routes():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    query = "SELECT reg, route_start, stop_1, stop_2, route_end FROM route;"
+    query = "SELECT reg, route_start, stop_1, stop_2, route_end FROM routes;"
     cursor.execute(query)
     print("\n Rotas existentes no sistema: ")
     for linha in cursor.fetchall():
