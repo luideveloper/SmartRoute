@@ -65,10 +65,11 @@ def read_routes():
     cursor.execute(query)
     print("\n Rotas existentes no sistema: ")
     for linha in cursor.fetchall():
-        print("Inicio: ", linha[0])
-        print("Primeira parada: ", linha[1])
+        print("Código da rota: ", linha[0])
+        print("Inicio: ", linha[1])
+        print("Primeira parada: ", linha[2])
         print("Segunda parada: ", linha[3])
-        print("Destino: ", linha[2])
+        print("Destino: ", linha[4])
     con.commit()
     con.close
     
@@ -81,7 +82,7 @@ def update_routes():
     new_stop_1 = ("Informe a nova parada, digite X para valores nulos.")
     new_stop_2 = ("Informe a nova segunda parada, digite X para valores nulos.")
     new_route_end = ("Informe o novo destino final da rota.")
-    routes_update = "UPDATE routes SET route_start, stop_1, stop_2, route_end, WHERE reg=?"
+    routes_update = "UPDATE routes SET route_start, stop_1, stop_2, route_end, WHERE reg="
     cursor.execute(routes_update,(new_route_start, new_stop_1, new_stop_2, new_route_end,reg))
     con.commit()
     con.close()
