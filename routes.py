@@ -24,7 +24,7 @@ def create_routes():
         route_end = route_end.upper()
         stop_1 = "X"
         stop_2 = "X"
-        table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?;)"
+        table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?)"
         cursor.execute(table_insert,(reg, route_start, stop_1, stop_2, route_end))
         con.commit()
         con.close()
@@ -39,7 +39,7 @@ def create_routes():
         stop_2 = stop_2.upper()
         route_end = input("Informe o destino final da rota")
         route_end = route_end.upper()
-        table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?;)"
+        table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?)"
         cursor.execute(table_insert,(reg, route_start, stop_1, stop_2, route_end))
         con.commit()
         con.close()
@@ -53,7 +53,7 @@ def create_routes():
         stop_2 = "X"
         route_end = input("Informe o destino final da rota")
         route_end = route_end.upper()
-        table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?;)"
+        table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?)"
         cursor.execute(table_insert,(reg, route_start, stop_1, stop_2, route_end))
         con.commit()
         con.close()
