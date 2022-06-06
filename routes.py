@@ -67,8 +67,8 @@ def read_routes():
     for linha in cursor.fetchall():
         print("Inicio: ", linha[0])
         print("Primeira parada: ", linha[1])
-        print("Segunda parada: ", linha[2])
-        print("Destino: ", linha[3])
+        print("Segunda parada: ", linha[3])
+        print("Destino: ", linha[2])
     con.commit()
     con.close
     
