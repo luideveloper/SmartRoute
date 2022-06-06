@@ -12,9 +12,9 @@ def register_vehicles():
     type = input("Digite o tipo do veículo: ")
     model = input("Digite o modelo do veículo: ")
     date = input("Digite a data de fabricação do veículo: ")
-    km_initial = ("Digite o quilômetro inicial: ")
+    km_initial = input("Digite o quilômetro inicial: ")
     km_now = input("Digite o quilômetro atual: ")
-    consultaInsert = "INSERT INTO vehicles (plate,vehicles_type,model,date,km_initial,km_now) VALUES (?,?,?,?,?);"
+    consultaInsert = "INSERT INTO vehicles (plate,vehicles_type,model,date,km_initial,km_now) VALUES (?,?,?,?,?,?);"
     cursor.execute(consultaInsert,(plate,type,model,date,km_initial,km_now))
     con.commit()
     con.close()
