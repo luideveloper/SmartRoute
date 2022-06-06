@@ -23,7 +23,7 @@ def register_vehicles():
 def read_vehicles():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    query = "SELECT plate, vehicle_type, model, date, km_initial, km_now FROM vehicles;"
+    query = "SELECT plate, vehicles_type, model, date, km_initial, km_now FROM vehicles;"
     cursor.execute(query)
     print("\n== VEÍCULOS CADASTRADOS ==\n")
     for linha in cursor.fetchall():
