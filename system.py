@@ -8,20 +8,6 @@ from vehicles import *
 from routes import *
 from business import *
 
-def start_bd():
-    con = sqlite3.connect("dados.db")
-    cursor = con.cursor()
-
-    # Checking and creating tables in BD
-
-    cursor.execute("CREATE TABLE IF NOT EXISTS users (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), user VARCHAR(200), password VARCHAR(200), office VARCHAR(100), type_license VARCHAR(100), validity_license VARCHAR(100), security_key VARCHAR(100), PRIMARY KEY (reg));")
-    cursor.execute("CREATE TABLE IF NOT EXISTS driver (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), type_license VARCHAR(100), validity_license VARCHAR(100), PRIMARY KEY (reg));")
-    cursor.execute("CREATE TABLE IF NOT EXISTS vehicles (reg integer, plate VARCHAR(200), vehicles_type VARCHAR(200), model VARCHAR(200), date VARCHAR(200), km_initial VARCHAR(200), km_now VARCHAR(200), PRIMARY KEY (reg));")
-    cursor.execute("CREATE TABLE IF NOT EXISTS routes (reg integer not null, route_start VARCHAR(200), route_end VARCHAR(200), stop_1 VARCHAR(200), stop_2 VARCHAR(200), PRIMARY KEY(reg));")
-    con.commit()
-    con.close()
-    menu()
-
 def menu():
     print("\x1b[2J\x1b[1;1H")
     print("=== BEM VINDO AO SMART ROUTE ===")
@@ -31,7 +17,6 @@ def menu():
     print("[ 4 ] Sair do programa")
 
     try:
-
         option = int(input("\nO que você deseja? "))
 
         if (option == 1):
@@ -50,6 +35,20 @@ def menu():
     
     except ValueError:
         value_error_input()
+
+def start_bd():
+    con = sqlite3.connect("dados.db")
+    cursor = con.cursor()
+
+    # Checking and creating tables in BD
+
+    cursor.execute("CREATE TABLE IF NOT EXISTS users (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), user VARCHAR(200), password VARCHAR(200), office VARCHAR(100), type_license VARCHAR(100), validity_license VARCHAR(100), security_key VARCHAR(100), PRIMARY KEY (reg));")
+    cursor.execute("CREATE TABLE IF NOT EXISTS driver (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), type_license VARCHAR(100), validity_license VARCHAR(100), PRIMARY KEY (reg));")
+    cursor.execute("CREATE TABLE IF NOT EXISTS vehicles (reg integer not null, plate VARCHAR(200), vehicles_type VARCHAR(200), model VARCHAR(200), date VARCHAR(200), km_initial VARCHAR(200), km_now VARCHAR(200), PRIMARY KEY (reg));")
+    cursor.execute("CREATE TABLE IF NOT EXISTS routes (reg integer not null, route_start VARCHAR(200), route_end VARCHAR(200), stop_1 VARCHAR(200), stop_2 VARCHAR(200), PRIMARY KEY(reg));")
+    con.commit()
+    con.close()
+    menu()
 
 def menu_business():
     print("\x1b[2J\x1b[1;1H")
