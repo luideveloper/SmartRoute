@@ -43,9 +43,11 @@ def create_routes():
         stop_2 = stop_2.upper()
         route_end = input("Informe o destino final da rota: ")
         route_end = route_end.upper()
+        print("\x1b[2J\x1b[1;1H")
         table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?)"
         cursor.execute(table_insert,(reg, route_start, stop_1, stop_2, route_end))
         con.commit()
+        print("\n>> CADASTRADO REALIZADO COM SUCESSO, INICIE O SISTEMA NOVAMENTE PARA CONTINUAR <<")
         con.close()
 
     elif (option == 1):
@@ -58,9 +60,11 @@ def create_routes():
         stop_2 = "X"
         route_end = input("Informe o destino final da rota: ")
         route_end = route_end.upper()
+        print("\x1b[2J\x1b[1;1H")
         table_insert = "INSERT into routes (reg, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?)"
         cursor.execute(table_insert,(reg, route_start, stop_1, stop_2, route_end))
         con.commit()
+        print("\n>> CADASTRADO REALIZADO COM SUCESSO, INICIE O SISTEMA NOVAMENTE PARA CONTINUAR <<")
         con.close()
 
 def read_routes():
@@ -91,9 +95,11 @@ def update_routes():
     new_stop_1 = ("Informe a nova parada, digite X para valores nulos.")
     new_stop_2 = ("Informe a nova segunda parada, digite X para valores nulos.")
     new_route_end = ("Informe o novo destino final da rota.")
+    print("\x1b[2J\x1b[1;1H")
     routes_update = "UPDATE routes SET route_start=?, stop_1=?, stop_2=?, route_end?, WHERE reg=?"
     cursor.execute(routes_update,(new_route_start, new_stop_1, new_stop_2, new_route_end,reg))
     con.commit()
+    print("\n>> ATUALIZAÇÃO REALIZADO COM SUCESSO, INICIE O SISTEMA NOVAMENTE PARA CONTINUAR <<")
     con.close()
 
 def remove_routes():
@@ -102,9 +108,11 @@ def remove_routes():
     cursor = con.cursor()
     read_routes()
     reg = int(input("Qual rota você deseja remover. "))
+    print("\x1b[2J\x1b[1;1H")
     tables_delete = "DELETE FROM routes WHERE reg ="
     cursor.execute(tables_delete+str(reg))
     con.commit()
+    print("\n>> REMOÇÃO REALIZADA COM SUCESSO, INICIE O SISTEMA NOVAMENTE PARA CONTINUAR <<")
     con.close()
 
 

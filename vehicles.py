@@ -1,9 +1,22 @@
-# Start - Code written by Erik Dias - [Github: https://github.com/erikdias7]
-
-
+#>Start - Code written by Erik Dias - [Github: https://github.com/erikdias7]<
+#---------------------------------------------------------------------------------------------------------------------------------------
+#>Aqui é a área de veículos do Smart Route<
+#---------------------------------------------------------------------------------------------------------------------------------------
+#>Função de cadastro contém as variáveis: (plate,type,model,date,km_initial,km_now)<
+#---------------------------------------------------------------------------------------------------------------------------------------
+#>Função de leitura apenas apresenta todos os veículos cadastrados e suas informações<
+#---------------------------------------------------------------------------------------------------------------------------------------
+#>Função de atualização contém as variáveis: (plate,newplate,km_now)<
+#---------------------------------------------------------------------------------------------------------------------------------------
+#>Função de remoção contém as variáveis> (plate)>
+#---------------------------------------------------------------------------------------------------------------------------------------
+#>Área de importação<
+#---------------------------------------------------------------------------------------------------------------------------------------
 import sqlite3
 import time
-
+#---------------------------------------------------------------------------------------------------------------------------------------
+#>Área de funções<
+#---------------------------------------------------------------------------------------------------------------------------------------
 def register_vehicles():
     print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
@@ -32,6 +45,7 @@ def register_vehicles():
 
 
 def read_vehicles():
+    print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     query = "SELECT plate, vehicles_type, model, date, km_initial, km_now FROM vehicles;"
@@ -70,7 +84,6 @@ def update_vehicles():
     con.close()
     
 
-
 def remove_vehicles():
     print("\x1b[2J\x1b[1;1H")
     print("\n>> Olá, bem vindo a área de remoção de veículos <<")
@@ -84,5 +97,5 @@ def remove_vehicles():
     con.commit()
     print("\n>> REMOÇÃO REALIZADA COM SUCESSO, INICIE O SISTEMA NOVAMENTE PARA CONTINUAR <<")
     con.close()
-
-# End - Code written by Erik Dias - [Github: https://github.com/erikdias7]
+#---------------------------------------------------------------------------------------------------------------------------------------
+#>End - Code written by Erik Dias - [Github: https://github.com/erikdias7]<
