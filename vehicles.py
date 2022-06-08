@@ -54,14 +54,12 @@ def update_vehicles():
     print("\x1b[2J\x1b[1;1H")
     newplate = input("Nova placa: ")
     print("\x1b[2J\x1b[1;1H")
-    typevehicle_newkm = input("Qual veículo vc deseja atualizar o quilômetro? ")
-    print("\x1b[2J\x1b[1;1H")
-    newkm = input("Qual a quilometragem atual? ")
+    km_now = input("Qual a quilometragem atual? ")
     print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    consultaAtualizar = "UPDATE vehicles SET newplate=?, typevehicle_newkm=?, newkm=?, WHERE plate=?"
-    cursor.execute(consultaAtualizar,(newplate,typevehicle_newkm,newkm,plate))
+    consultaAtualizar = "UPDATE vehicles SET plate=?, km_now=? WHERE plate=?"
+    cursor.execute(consultaAtualizar,(newplate,km_now,plate))
     con.commit()
     print("\n>> ATUALIZAÇÃO REALIZADA COM SUCESSO, INICIE O SISTEMA NOVAMENTE PARA CONTINUAR <<")
     con.close()
