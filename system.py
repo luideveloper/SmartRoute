@@ -259,6 +259,21 @@ def menu_driver():
 
     option = int(input("Digite o número da opção que deseja: "))
 
+    if (option == 1):
+        read_routes()
+    elif (option == 2):
+        read_vehicles()
+    elif (option == 3):
+        update_vehicles()
+    elif (option == 4):
+        print("Em desenvolvimento...")
+    elif (option == 5):
+        menu()
+    elif (option == 6):
+        print("\x1b[2J\x1b[1;1H")
+        exit()
+        
+
 def menu_operational():
     print("\x1b[2J\x1b[1;1H")
     print("\n=== Olá, seja bem vindo ao painel | Setor: Operacional ===\n")
