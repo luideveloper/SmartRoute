@@ -39,7 +39,7 @@ def register_driver():
 
     if (cpf in list_cpf):
         print("\x1b[2J\x1b[1;1H")
-        print("=== ATENÇÃO ===\n")
+        print("== ATENÇÃO ==\n")
         print("CPF existente em cadastro, cadastre outro CPF para finalizar o cadastro")
         time.sleep(6)
         con.close()
@@ -48,7 +48,7 @@ def register_driver():
         
     elif (len(cpf) > 11 or len(cpf) < 11):
         print("\x1b[2J\x1b[1;1H")
-        print("=== ATENÇÃO ===\n")
+        print("== ATENÇÃO ==\n")
         print(">> Quantidade de caracteres do CPF inválida")
         time.sleep(6)
         con.close()
@@ -57,7 +57,7 @@ def register_driver():
 
     elif (user in list_users):
         print("\x1b[2J\x1b[1;1H")
-        print("=== ATENÇÃO ===\n")
+        print("== ATENÇÃO ==\n")
         print("Usuário já existente em cadastro, escolha outro usuário para finalizar o cadastro")
         time.sleep(6)
         con.close()
@@ -75,12 +75,13 @@ def register_driver():
 # Ler todos os motoristas cadastrados no sistema ↓
 
 def read_driver():
+    print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     office = "Motorista"
     cod_query_read = "SELECT name, cpf, type_license, validity_license FROM users WHERE office =?;"
     cursor.execute(cod_query_read,(office,))
-    print("\n== MOTORISTAS CADASTRADOS ==\n")
+    print("\n== MOTORISTAS CADASTRADOS ==")
 
     # Percorre as informações do BD e imprime ↓
 
@@ -90,7 +91,7 @@ def read_driver():
         print("Categoria da Habilitação:", linha[2])
         print("Validade da Habilitação:", linha[3])
         print("\n-------------------")
-    time.sleep(5)
+    time.sleep(10)
     con.close()
 
 # Atualização de cadastro ↓
@@ -153,7 +154,7 @@ def update_driver():
 
             elif (new_user in list_users):
                 print("\x1b[2J\x1b[1;1H")
-                print("=== ATENÇÃO ===\n")
+                print("== ATENÇÃO ==\n")
                 print(">> Usuário indisponível, escolha outro usuário para efetuar a atualização do cadastro")
                 time.sleep(5)
                 con.close()
@@ -171,7 +172,7 @@ def update_driver():
             post_error_recovery_account()
     else:
         print("\x1b[2J\x1b[1;1H")
-        print("=== ATENÇÃO ===\n")
+        print("== ATENÇÃO ==\n")
         print(">> Funcionário não encontrado")
         time.sleep(5)
         con.close()

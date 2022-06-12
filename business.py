@@ -27,7 +27,7 @@ def read_employee():
         print("Usuário:", linha[2])
         print("Setor:", linha[3])
         print("\n-------------------")
-    time.sleep(15)
+    time.sleep(10)
     con.close()
 
 # Atualização de cadastro ↓
@@ -96,7 +96,7 @@ def update_account():
 
                 elif (new_user in list_users):
                     print("\x1b[2J\x1b[1;1H")
-                    print("=== ATENÇÃO ===\n")
+                    print("== ATENÇÃO ==\n")
                     print(">> Usuário indisponível, escolha outro usuário para efetuar a atualização do cadastro")
                     time.sleep(5)
                     con.close()
@@ -128,7 +128,7 @@ def update_account():
             if (new_password == repeat_new_password):
                 if (new_user in list_users):
                     print("\x1b[2J\x1b[1;1H")
-                    print("=== ATENÇÃO ===\n")
+                    print("== ATENÇÃO ==\n")
                     print(">> Usuário indisponível, escolha outro usuário para efetuar a atualização do cadastro")
                     time.sleep(5)
                     con.close()
@@ -144,13 +144,13 @@ def update_account():
 
         else:
             print("\x1b[2J\x1b[1;1H")
-            print("=== ATENÇÃO ===\n")
+            print("== ATENÇÃO ==\n")
             print(">> Funcionário com cargo não identificado")
             time.sleep(5)
             con.close()
     else:
         print("\x1b[2J\x1b[1;1H")
-        print("=== ATENÇÃO ===\n")
+        print("== ATENÇÃO ==\n")
         print(">> Funcionário não encontrado")
         time.sleep(5)
         con.close()
@@ -185,7 +185,7 @@ def remove_account():
         
     else:
         print("\x1b[2J\x1b[1;1H")
-        print("=== ATENÇÃO ===\n")
+        print("== ATENÇÃO ==\n")
         print(">> Cadastro não encontrado")
         time.sleep(3)
         con.close()
