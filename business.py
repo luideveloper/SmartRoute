@@ -190,5 +190,4 @@ def remove_account():
         time.sleep(3)
         con.close()
 
-
 # End - Code written by Lui Richard - [Github: https://github.com/luideveloper]

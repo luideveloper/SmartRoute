@@ -784,4 +784,3 @@ def value_error_input():
     menu()
 
 # End - Code written by Lui Richard - [Github: https://github.com/luideveloper]
-
