@@ -1,4 +1,5 @@
 # Start - Code written by José Gabriel - [Github: https://github.com/brak3]
+
 #Tabelas para uso, chave_primeira = reg
 #                  inicio da rota = route_start
 #                  paradas = stop_1, stop_2
@@ -8,6 +9,7 @@
 #Loopar esse menu caso o usuário digite um valor invalido
 #Procurar uma forma de fazer funcionar o update, quando exitir paradas e quando não exitir
 #Talvez adicionar algo para a quilometragem, !!! Teria que interagir com um arquivo no excel feito por Rafael !!!
+
 import sqlite3
 import time
 

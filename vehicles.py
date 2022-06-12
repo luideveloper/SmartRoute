@@ -22,7 +22,7 @@ def register_vehicles():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
     print("\n>> Olá, bem vindo a área de cadastro de veículos <<")
-    plate = input("Digite a placa do veículo: ")
+    plate = input("\nDigite a placa do veículo: ")
     plate = plate.upper()
     print("\x1b[2J\x1b[1;1H")
     type = input("Digite o tipo do veículo: ")

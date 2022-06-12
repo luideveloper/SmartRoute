@@ -1,15 +1,24 @@
 # Start - Code written by Lui Richard - [Github: https://github.com/luideveloper]
 
+# Importação de bibliotecas ↓
+
 import sqlite3
 import time
+
+# Importação de funções de arquivos externos ↓
 
 from driver import *
 from vehicles import *
 from routes import *
 from business import *
 
+# Menu principal ↓
+
 def menu():
     print("\x1b[2J\x1b[1;1H")
+
+    # Funcionalidades do menu principal do programa
+
     print("=== BEM VINDO AO SMART ROUTE ===")
     print("\n[ 1 ] Faça login")
     print("[ 2 ] Criar conta")
@@ -18,6 +27,8 @@ def menu():
 
     try:
         option = int(input("\nO que você deseja? "))
+
+        # Bloco de condicionais para realização das funcionalidades
 
         if (option == 1):
             login()
@@ -33,14 +44,21 @@ def menu():
             time.sleep(2)
             menu()
     
+    # Tratamento de erros inesperados no programa
+
     except ValueError:
         value_error_input()
 
+# Função responsável por iniciar a conexão com o banco de dados ↓
+
 def start_bd():
+
+    # Conexão + cursor ↓
+
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
 
-    # Checking and creating tables in BD
+    # Realiza a checagem e criação de tabelas no banco de dados ↓
 
     cursor.execute("CREATE TABLE IF NOT EXISTS users (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), user VARCHAR(200), password VARCHAR(200), office VARCHAR(100), type_license VARCHAR(100), validity_license VARCHAR(100), security_key VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS driver (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), type_license VARCHAR(100), validity_license VARCHAR(100), PRIMARY KEY (reg));")
@@ -50,8 +68,13 @@ def start_bd():
     con.close()
     menu()
 
+# Menu de funcionalidades do setor Administrativo ↓
+
 def menu_business():
     print("\x1b[2J\x1b[1;1H")
+
+    # Funcionalidades - Administrativo ↓
+
     print("\n=== Olá, seja bem vindo ao painel | Setor: Administrativo ===\n")
     print("[ 1 ] Acessar área dos motoristas")
     print("[ 2 ] Acessar área dos veículos")
@@ -107,6 +130,9 @@ def menu_business():
 
     elif (option == 2):
         print("\x1b[2J\x1b[1;1H")
+
+        # Funcionalidades - Veículos
+
         print("=== ÁREA VEÍCULOS ===")
         print("\n[ 1 ] Cadastrar veículos")
         print("[ 2 ] Visualizar veículos")
@@ -146,6 +172,9 @@ def menu_business():
 
     elif (option == 3):
         print("\x1b[2J\x1b[1;1H")
+
+        # Funcionalidades - Rotas
+
         print("=== ÁREA ROTAS ===")
         print("\n[ 1 ] Cadastrar rotas")
         print("[ 2 ] Visualizar rotas")
@@ -185,15 +214,17 @@ def menu_business():
 
     elif (option == 4):
         print("\x1b[2J\x1b[1;1H")
+
+        # Funcionalidades - Empresa
+
         print("=== ÁREA EMPRESA ===")
         print("\n[ 1 ] Cadastrar conta")
         print("[ 2 ] Recuperar conta")
         print("[ 3 ] Atualizar cadastro")
-        print("[ 4 ] Visualizar relatório")
-        print("[ 5 ] Excluir contas")
-        print("[ 6 ] Visualizar funcionários")
-        print("[ 7 ] Voltar ao menu anterior")
-        print("[ 8 ] Sair do programa\n")
+        print("[ 4 ] Excluir contas")
+        print("[ 5 ] Visualizar funcionários")
+        print("[ 6 ] Voltar ao menu anterior")
+        print("[ 7 ] Sair do programa\n")
 
         business = int(input("Digite o número da opção que deseja: "))
 
@@ -213,26 +244,22 @@ def menu_business():
         
         elif (business == 4):
             print("\x1b[2J\x1b[1;1H")
-            print("Ainda em desenvolvimento")
+            remove_account()
+            post_action_business()
         
         elif (business == 5):
             print("\x1b[2J\x1b[1;1H")
-            remove_account()
+            read_employee()
             post_action_business()
 
         elif (business == 6):
             print("\x1b[2J\x1b[1;1H")
-            read_employee()
-            post_action_business()
+            menu_business()
         
         elif (business == 7):
             print("\x1b[2J\x1b[1;1H")
-            menu_business()
-        
-        elif ():
-            print("\x1b[2J\x1b[1;1H")
             exit()
-
+    
         else:
             invalid_option()
 
@@ -247,15 +274,19 @@ def menu_business():
     else:
         invalid_option()
 
+# Menu de funcionalidades do setor de Motoristas ↓
+
 def menu_driver():
     print("\x1b[2J\x1b[1;1H")
+
+    # Funcionalidades - Motorista ↓
+    
     print("\n=== Olá, seja bem vindo ao painel | Setor: Motorista ===\n")
     print("[ 1 ] Visualizar rotas")
     print("[ 2 ] Visualizar veículos")
     print("[ 3 ] Atualizar veículos")
-    print("[ 4 ] Acessar área da empresa")
-    print("[ 5 ] Voltar ao menu anterior")
-    print("[ 6 ] Sair do programa\n")
+    print("[ 4 ] Voltar ao menu anterior")
+    print("[ 5 ] Sair do programa\n")
 
     option = int(input("Digite o número da opção que deseja: "))
 
@@ -266,16 +297,18 @@ def menu_driver():
     elif (option == 3):
         update_vehicles()
     elif (option == 4):
-        print("Em desenvolvimento...")
-    elif (option == 5):
         menu()
-    elif (option == 6):
+    elif (option == 5):
         print("\x1b[2J\x1b[1;1H")
         exit()
         
+# Menu de funcionalidades do setor Operacional ↓
 
 def menu_operational():
     print("\x1b[2J\x1b[1;1H")
+
+    # Funcionalidades - Operacional ↓
+
     print("\n=== Olá, seja bem vindo ao painel | Setor: Operacional ===\n")
     print("[ 1 ] Visualizar motoristas")
     print("[ 2 ] Visualizar veículos")
@@ -294,10 +327,19 @@ def menu_operational():
         print("\x1b[2J\x1b[1;1H")
         exit()
 
+# Menu de login --> A parti do login o sistema identifica o setor do usuário e
+# demostra um menu personalizado com as funcionalidades disponíveis para aquele setor ↓
+
 def login():
     print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
+
+    # Faz uma puxada de todos os usuários já cadastrados no banco 
+    # e joga dentro de uma lista para realizar uma verificação se
+    # o user passado pelo usuário realmente pertence a um cadastrto
+    # já existente ↓
+
     cod_query_read = "SELECT user FROM users;"
     cursor.execute(cod_query_read)
 
@@ -305,6 +347,9 @@ def login():
     
     for linha in cursor.fetchall():
         user_bd = linha[0]
+
+        # Adicionando todos os usuários já existente na lista ↓
+
         list_users.append(user_bd)
     
     business = "Administrativo"
@@ -316,13 +361,24 @@ def login():
     user = user.replace(" ", "").lower()
     password = input("Digite sua senha: ")
 
+    # Realizada a puxada dos dados do user que foi passado 
+    # pelo usuário no login para identificação e verificações ↓
+
     cod_query_read_2 = "SELECT user, password, office FROM users WHERE user=?;"
     cursor.execute(cod_query_read_2,(user,))
+
     for linha in cursor.fetchall():
         password_bd = linha[1]
         office_bd = linha[2]
 
+    # Verificação se o user repassado pertence a um cadastro existente
+    # e se a senha repassada está correta (caso o cadastro exista) ↓
+
     if (user in list_users and password == password_bd):
+
+        # Bloco de condicionais para a 
+        # verificação do setor do usuário ↓
+
         if (business == office_bd):
             menu_business()
         elif (driver == office_bd):
@@ -331,19 +387,29 @@ def login():
             menu_operational()
         else:
             print("Usuário com cargo não cadastrado")
-        
+    
+    # Caso o usuário repassado no login não exista em
+    # nenhum cadastro o programa informa ao o usuário ↓
+
     elif (user not in list_users):
         print("\x1b[2J\x1b[1;1H")
         print("=== Usuário incorreto ===")
         post_login_error()
+    
+    # Caso o a senha repassada no login esteja 
+    # errada o sistema informa ao usuário ↓
 
     elif (password != password_bd):
         print("\x1b[2J\x1b[1;1H")
         print("=== Senha incorreta ===")
         post_login_error()
 
+    # Erro inesperado no programa ↓
+
     else:
         error()
+
+# Mensagem + menu pós erro login ↓
 
 def post_login_error():
     print("\nEscolha uma das opções\n")
@@ -366,11 +432,15 @@ def post_login_error():
     else:
         invalid_option()
 
+# Criação de contas | Cadastro ↓
+
 def create_account():
     print("\x1b[2J\x1b[1;1H")
 
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
+
+    # Chave de permissão para criar uma conta no sistema ↓
 
     key_company = "keytest"
 
@@ -378,6 +448,8 @@ def create_account():
     print("Para poder criar uma conta e ter acesso no sistema, você precisa fornecer a chave de permissão fornecida pela empresa\n")
 
     key = input("Chave de permissão: ")
+
+    # Verificação da chave de permissão ↓
 
     if (key == key_company):
         print("\x1b[2J\x1b[1;1H")
@@ -423,7 +495,9 @@ def create_account():
             list_cpf.append(cpf_bd)
             list_users.append(user_bd)
 
-        # Start - Registration Validations
+        # Verificação de dados no cadastro
+
+        # Verifica se o cpf repassado já está cadastrado ↓
 
         if (cpf in list_cpf):
             print("\x1b[2J\x1b[1;1H")
@@ -432,12 +506,16 @@ def create_account():
             time.sleep(6)
             create_account()
         
+        # Verifica se a quantidade de caracteres do cpf repassado está correta ↓
+
         elif (len(cpf) > 11 or len(cpf) < 11):
             print("\x1b[2J\x1b[1;1H")
             print("=== ATENÇÃO ===\n")
             print(">> Quantidade de caracteres do CPF inválida")
             time.sleep(6)
-            create_account()
+            menu()
+
+        # Verifica se o user repassado já está cadastrado ↓
 
         elif (user in list_users):
             print("\x1b[2J\x1b[1;1H")
@@ -446,7 +524,7 @@ def create_account():
             time.sleep(6)
             create_account()
 
-        # End - Registration Validations
+        # Se passar em todas as verificações, o cadastro é realizado ↓
 
         else:
             cod_query_creat = "INSERT INTO users (name,cpf,user,password,office,security_key) VALUES (?,?,?,?,?,?);"
@@ -456,6 +534,7 @@ def create_account():
             con.close()
             time.sleep(4)
             menu()
+            
     else:
         print("\x1b[2J\x1b[1;1H")
         print("Chave inválida")
@@ -479,6 +558,8 @@ def create_account():
             time.sleep(3)
             menu()
 
+# Recuperação de contas --> senhas ↓
+
 def recovery_account():
     print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
@@ -486,6 +567,8 @@ def recovery_account():
 
     cpf = input("\nQual o cpf da conta que deseja recuperar? ")
     cpf = cpf.replace(" ", "").lower()
+
+    # Puxa as informações de cadastro do cpf repassado ↓ 
 
     cod_query_read = "SELECT cpf, security_key FROM users WHERE cpf=?;"
     cursor.execute(cod_query_read,(cpf,))
@@ -495,7 +578,14 @@ def recovery_account():
     for linha in cursor.fetchall():
         cpf_bd = linha[0]
         security_key_bd = linha[1]
+
+        # Caso o cpf esteja cadastrado, ele será adicionado a essa lista
+        # Se não estiver, a lista permanecera vazia
+
         list_cpf.append(cpf_bd)
+
+    # Se o cpf que foi repassado estiver cadastrado e conter informações 
+    # associadas, ele faz uma nova verificação: chave de segurança ↓
 
     if (cpf in list_cpf):
         print("\x1b[2J\x1b[1;1H")
@@ -533,6 +623,9 @@ def recovery_account():
                 menu()
             else:
                 invalid_option()
+
+    # Caso o cpf repassado não contenha informações associadas e não esteja 
+    # cadastrado programa informa ao usuário que o cpf não foi encontrado ↓
         
     else:
         print("\x1b[2J\x1b[1;1H")
@@ -554,6 +647,8 @@ def recovery_account():
         else:
             invalid_option()
 
+# Mensagem + menu pós erro ao recuperação de conta ↓
+
 def post_error_recovery_account():
     print("\x1b[2J\x1b[1;1H")
     print("\n=== As senhas digitadas não são iguais ===\n")
@@ -568,6 +663,8 @@ def post_error_recovery_account():
         recovery_account()
     elif (option == 2):
         menu()
+
+# Menu de pós erro ao criar conta ↓
 
 def post_action_create_account():
     print("\x1b[2J\x1b[1;1H")
@@ -588,6 +685,12 @@ def post_action_create_account():
     else:
         invalid_option()
 
+# Toda vez que uma ação (funcionalidade) for realizada
+# pelo setor em questão o usuário tem acesso ao
+# menu ao menu de pós ação para poder realizar novas ações ↓
+
+# Menu de pós ação | Administrativo ↓
+
 def post_action_business():
     print("\x1b[2J\x1b[1;1H")
     print("Opções\n")
@@ -601,6 +704,8 @@ def post_action_business():
     elif (option == 2):
         print("\x1b[2J\x1b[1;1H")
         exit()
+
+# Menu de pós ação | Motorista ↓
 
 def post_action_driver():
     print("\x1b[2J\x1b[1;1H")
@@ -616,6 +721,8 @@ def post_action_driver():
         print("\x1b[2J\x1b[1;1H")
         exit()
 
+# Menu de pós ação | Operacional ↓
+
 def post_action_operational():  	
     print("\x1b[2J\x1b[1;1H")
     print("Opções\n")
@@ -630,10 +737,19 @@ def post_action_operational():
         print("\x1b[2J\x1b[1;1H")
         exit()
 
+# Quando o usuário digita um número que
+# não é correspondente a nenhuma opção do menu
+# o programa sinaliza que é o número digitado é
+# uma opção inválida ↓
+
+# Mensagem de opção inválida ↓
+
 def invalid_option():
     print("\x1b[2J\x1b[1;1H")
     print("=== ATENÇÃO ===\n")
     print(">> Opção inválida")
+
+# Mensagem de erro no programa ↓
 
 def error():
     print("\x1b[2J\x1b[1;1H")
@@ -642,11 +758,14 @@ def error():
     time.sleep(4)
     menu()
 
+# Mensagem de erro inesperado no programa ↓
+
 def value_error_input():
     print("\x1b[2J\x1b[1;1H")
     print("=== ATENÇÃO ===\n")
-    print(">> O valor digitado de ser um número")
-    time.sleep(4)
+    print(">> Erro inesperado, o programa será reinicializado")
+    time.sleep(3)
     menu()
 
 # End - Code written by Lui Richard - [Github: https://github.com/luideveloper]
+

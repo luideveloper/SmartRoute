@@ -1,14 +1,17 @@
 # Start - Code written by Lui Richard - [Github: https://github.com/luideveloper]
 
+# Importação de bibliotecas ↓
+
 import sqlite3
 import time
+
+# Cadastro de motorista no sistema | Registro ↓
 
 def register_driver():
     print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-
-    office = "Motorista"
+    office = "Motorista" # Definição do cargo (fixo) para inserção no banco de dados
     name = input("Nome: ")
     cpf = input("CPF: ")
     user = input("Usuário: ")
@@ -30,7 +33,9 @@ def register_driver():
         list_cpf.append(cpf_bd)
         list_users.append(user_bd)
 
-    # Start - Registration Validations
+    # Verificação de dados no cadastro
+
+    # Verifica se o cpf repassado já está cadastrado ↓
 
     if (cpf in list_cpf):
         print("\x1b[2J\x1b[1;1H")
@@ -38,6 +43,8 @@ def register_driver():
         print("CPF existente em cadastro, cadastre outro CPF para finalizar o cadastro")
         time.sleep(6)
         con.close()
+
+    # Verifica se a quantidade de caracteres do cpf repassado está correta ↓
         
     elif (len(cpf) > 11 or len(cpf) < 11):
         print("\x1b[2J\x1b[1;1H")
@@ -45,6 +52,8 @@ def register_driver():
         print(">> Quantidade de caracteres do CPF inválida")
         time.sleep(6)
         con.close()
+    
+    # Verifica se o user repassado já está cadastrado ↓
 
     elif (user in list_users):
         print("\x1b[2J\x1b[1;1H")
@@ -53,7 +62,7 @@ def register_driver():
         time.sleep(6)
         con.close()
 
-    # End - Registration Validations
+    # Se passar em todas as verificações, o cadastro é realizado ↓
 
     else:
         cod_query_creat = "INSERT INTO users (name,cpf,user,password,office,type_license,validity_license,security_key) VALUES (?,?,?,?,?,?,?,?);"
@@ -63,6 +72,8 @@ def register_driver():
         time.sleep(3)
         con.close()
 
+# Ler todos os motoristas cadastrados no sistema ↓
+
 def read_driver():
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
@@ -70,6 +81,9 @@ def read_driver():
     cod_query_read = "SELECT name, cpf, type_license, validity_license FROM users WHERE office =?;"
     cursor.execute(cod_query_read,(office,))
     print("\n== MOTORISTAS CADASTRADOS ==\n")
+
+    # Percorre as informações do BD e imprime ↓
+
     for linha in cursor.fetchall():
         print("\nNome:", linha[0])
         print("CPF:", linha[1])
@@ -78,6 +92,8 @@ def read_driver():
         print("\n-------------------")
     time.sleep(5)
     con.close()
+
+# Atualização de cadastro ↓
 
 def update_driver():
     print("\x1b[2J\x1b[1;1H")
@@ -99,6 +115,14 @@ def update_driver():
         list_users.append(user_bd)
         list_cpf.append(cpf_bd)
     
+    cod_query_read2 = "SELECT user, cpf FROM users WHERE cpf=?;"
+    cursor.execute(cod_query_read2,(cpf,))
+    
+    for linha in cursor.fetchall():
+        user_bd2 = linha[0]
+
+    # Se o cpf que foi repassado estiver cadastrado o usuário segue na funcionalidade ↓
+    
     if (cpf in list_cpf):
         print("\x1b[2J\x1b[1;1H")
         print("\n== DIGITE OS NOVOS DADOS ==\n")
@@ -111,13 +135,31 @@ def update_driver():
         repeat_new_password = input("Repita a senha nova: ")
         new_security_key = input("Chave de segurança: ")
 
+        # Verifica se nova senha foi digitada corretamente na repetição ↓
+
         if (new_password == repeat_new_password):
-            if (new_user in list_users):
+            
+            # Se o user for repetido, a atualização será realizada ↓
+            
+            if (new_user == user_bd2):
+                    cod_query_update = "UPDATE users SET name=?, user=?, password=?, security_key=? WHERE cpf=?"
+                    cursor.execute(cod_query_update,(new_name,new_user,new_password,new_security_key,cpf))
+                    con.commit()
+                    print("\n>> CADASTRO ATUALIZADO COM SUCESSO <<")
+                    time.sleep(3)
+                    con.close()
+            
+            # Verifica se o novo usuário já está cadastrado ↓
+
+            elif (new_user in list_users):
                 print("\x1b[2J\x1b[1;1H")
                 print("=== ATENÇÃO ===\n")
                 print(">> Usuário indisponível, escolha outro usuário para efetuar a atualização do cadastro")
                 time.sleep(5)
                 con.close()
+
+            # Caso o novo usuário não esteja em uso, a atualização será realizada ↓
+
             else:
                 cod_query_update = "UPDATE users SET name=?, user=?, password=?, type_license=?, validity_license=?, security_key=? WHERE cpf=?"
                 cursor.execute(cod_query_update,(new_name,new_user,new_password,new_type_license,new_validity_license,new_security_key,cpf))
