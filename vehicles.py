@@ -48,7 +48,7 @@ def read_vehicles():
         print("Quilômetro atual:", linha[5])
         print("\n-------------------")
     con.commit()
-    time.sleep(8)
+    time.sleep(13)
     con.close()
 
 # Função de atualização contém as variáveis: (plate,newplate,km_now) ↓
