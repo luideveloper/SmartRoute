@@ -26,7 +26,7 @@ def start_bd():
     cursor.execute("CREATE TABLE IF NOT EXISTS users (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), user VARCHAR(200), password VARCHAR(200), office VARCHAR(100), type_license VARCHAR(100), validity_license VARCHAR(100), security_key VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS driver (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), type_license VARCHAR(100), validity_license VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS vehicles (reg integer not null, plate VARCHAR(200), vehicles_type VARCHAR(200), model VARCHAR(200), date VARCHAR(200), km_initial VARCHAR(200), km_now VARCHAR(200), PRIMARY KEY (reg));")
-    cursor.execute("CREATE TABLE IF NOT EXISTS routes (reg integer not null, route_code VARCHAR(200), route_start VARCHAR(200), route_end VARCHAR(200), stop VARCHAR(200), PRIMARY KEY(reg));")
+    cursor.execute("CREATE TABLE IF NOT EXISTS routes (reg integer not null, route_code VARCHAR(200), route_start VARCHAR(200), route_end VARCHAR(200), stop_1 VARCHAR(200), stop_2 VARCHAR(200), PRIMARY KEY(reg));")
     con.commit()
     con.close()
     menu()
