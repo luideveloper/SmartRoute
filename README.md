@@ -1,4 +1,4 @@
-## SmartRoute
+## SmartRoute 🛣️
 
  📍 O projeto Smart Route tem como foco a otimização de rotas de veículos em empresas que têm necessidade constante de deslocamento diário. Tendo em vista o grande aumento no valor dos combustíveis e também o desgaste dos veículos, a nossa equipe: TI Cariri busca desenvolver um sistema de fácil compreensão por parte do usuário e que possibilite a melhor administração de rotas no espaço de trabalho. 
  
