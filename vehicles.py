@@ -1,5 +1,3 @@
-# Start - Code written by Erik Dias - [Github: https://github.com/erikdias7]
-
 # Aqui é a área de veículos do Smart Route
 
 # Importação de bibliotecas ↓
@@ -48,7 +46,7 @@ def read_vehicles():
         print("Quilômetro atual:", linha[5])
         print("\n-------------------")
     con.commit()
-    time.sleep(13)
+    time.sleep(8)
     con.close()
 
 # Função de atualização contém as variáveis: (plate,newplate,km_now) ↓
@@ -84,5 +82,4 @@ def remove_vehicles():
     print("\n>> REMOÇÃO REALIZADA COM SUCESSO <<")
     time.sleep(3)
     con.close()
-
-# End - Code written by Erik Dias - [Github: https://github.com/erikdias7] 
+ 

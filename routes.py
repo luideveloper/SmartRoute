@@ -1,9 +1,6 @@
-# Start - Code written by José Gabriel - [Github: https://github.com/brak3]
-
 # Uso na tabela: chave_primeira = reg
 #                  inicio da rota = route_start
-#                  paradas = stop_1
-#                  paradas = stop_2 
+#                  paradas = stop
 #                  final da rota = route_end
 
 # Importação de bibliotecas ↓
@@ -36,13 +33,13 @@ def create_routes():
         print("\x1b[2J\x1b[1;1H")
         route_code = int(input("Código da rota: "))
         route_start = input("Ponto inicial da rota: ")
-        stop_1 = input("Primeira parada na rota: ")
-        stop_2 = input("Segunda parada na rota: ")
+        stop = input("Paradas na rota: ")
         route_end = input("Destino final da rota: ")
 
         if (route_code in list_route_code):
             print("\x1b[2J\x1b[1;1H")
             print("== Código de rota já existente em cadastro ==")
+
             print("\n Opções")
             print("[ 1 ] Voltar ao painel de funções")
             print("[ 2 ] Sair do programa")
@@ -55,8 +52,8 @@ def create_routes():
                 print("\x1b[2J\x1b[1;1H")
                 exit()
         else:
-            table_insert = "INSERT into routes (route_code, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?)"
-            cursor.execute(table_insert,(route_code, route_start, stop_1, stop_2, route_end))
+            table_insert = "INSERT into routes (route_code, route_start, stop, route_end) values (?, ?, ?, ?)"
+            cursor.execute(table_insert,(route_code, route_start, stop, route_end))
             con.commit()
             print("\n>> ROTA CADASTRADA COM SUCESSO <<")
             time.sleep(3)
@@ -66,8 +63,7 @@ def create_routes():
         print("\x1b[2J\x1b[1;1H")
         route_code = int(input("Código da rota: "))
         route_start = input("Informe o inicio da rota: ")
-        stop_1 = "Não possui paradas."
-        stop_2 = "Não possui paradas."
+        stop = "Não possui paradas"
         route_end = input("Informe o destino final da rota: ")
 
         if (route_code in list_route_code):
@@ -86,8 +82,8 @@ def create_routes():
                 print("\x1b[2J\x1b[1;1H")
                 exit()
         else:
-            table_insert = "INSERT into routes (route_code, route_start, stop_1, stop_2, route_end) values (?, ?, ?, ?, ?)"
-            cursor.execute(table_insert,(route_code, route_start, stop_1, stop_2, route_end))
+            table_insert = "INSERT into routes (route_code, route_start, stop, route_end) values (?, ?, ?, ?)"
+            cursor.execute(table_insert,(route_code, route_start, stop, route_end))
             con.commit()
             print("\n>> ROTA CADASTRADA COM SUCESSO <<")
             time.sleep(3)
@@ -107,15 +103,14 @@ def read_routes():
     print("\x1b[2J\x1b[1;1H")
     con = sqlite3.connect("dados.db")
     cursor = con.cursor()
-    query = "SELECT route_code, route_start, stop_1, stop_2, route_end FROM routes;"
+    query = "SELECT route_code, route_start, stop, route_end FROM routes;"
     cursor.execute(query)
     print("== ROTAS CADASTRADAS ==")
     for linha in cursor.fetchall():
         print("\nCódigo: ", linha[0])
         print("Inicio: ", linha[1])
-        print("Primeira parada: ", linha[2])
-        print("Segunda parada:  ", linha[3])
-        print("Destino final: ", linha[4])
+        print("Paradas: ", linha[2])
+        print("Destino final: ", linha[3])
         print("\n-------------------")
     con.commit()
     time.sleep(10)
@@ -129,12 +124,11 @@ def update_routes():
     cursor = con.cursor()
     route_code = input("Qual o código da rota que você deseja atualizar? ")
     new_route_start = input("\nNovo inicio da rota: ")
-    new_stop_1 = input("Nova primeira parada: ")
-    new_stop_2 = input("Nova segunda parada :")
+    new_stop = input("Novas paradas: ")
     new_route_end = input("Novo destino final da rota: ")
     print("\x1b[2J\x1b[1;1H")
-    routes_update = "UPDATE routes SET route_start=?, stop_1=?, stop_2=?, route_end=? WHERE route_code=?"
-    cursor.execute(routes_update,(new_route_start,new_stop_1, new_stop_2,new_route_end,route_code))
+    routes_update = "UPDATE routes SET route_start=?, stop=?, route_end=? WHERE route_code=?"
+    cursor.execute(routes_update,(new_route_start,new_stop,new_route_end,route_code))
     con.commit()
     print("\n>> ATUALIZAÇÃO REALIZADO COM SUCESSO <<")
     time.sleep(3)
@@ -153,6 +147,3 @@ def remove_routes():
     print("\n>> REMOÇÃO REALIZADA COM SUCESSO <<")
     time.sleep(3)
     con.close()
-
-
-# End - Code written by José Gabriel - [Github: https://github.com/brak3]

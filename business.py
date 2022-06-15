@@ -1,5 +1,3 @@
-# Start - Code written by Lui Richard - [Github: https://github.com/luideveloper]
-
 # Importação de bibliotecas ↓
 
 import sqlite3
@@ -111,7 +109,11 @@ def update_account():
                     time.sleep(3)
                     con.close()
             else:
-                post_error_recovery_account()
+                print("\x1b[2J\x1b[1;1H")
+                print("\n== As senhas digitadas não são iguais ==\n")
+                time.sleep(3)
+                con.commit()
+                con.close()
 
         elif (office_bd == motorista):
             update_driver()
@@ -140,7 +142,11 @@ def update_account():
                     time.sleep(3)
                     con.close()
             else:
-                post_error_recovery_account()
+                print("\x1b[2J\x1b[1;1H")
+                print("\n== As senhas digitadas não são iguais ==\n")
+                time.sleep(3)
+                con.commit()
+                con.close()
 
         else:
             print("\x1b[2J\x1b[1;1H")
@@ -189,5 +195,3 @@ def remove_account():
         print(">> Cadastro não encontrado")
         time.sleep(3)
         con.close()
-
-# End - Code written by Lui Richard - [Github: https://github.com/luideveloper]

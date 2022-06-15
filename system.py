@@ -1,5 +1,3 @@
-# Start - Code written by Lui Richard - [Github: https://github.com/luideveloper]
-
 # Importação de bibliotecas ↓
 
 import sqlite3
@@ -26,7 +24,7 @@ def start_bd():
     cursor.execute("CREATE TABLE IF NOT EXISTS users (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), user VARCHAR(200), password VARCHAR(200), office VARCHAR(100), type_license VARCHAR(100), validity_license VARCHAR(100), security_key VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS driver (reg integer not null, name VARCHAR(200), cpf VARCHAR(11), type_license VARCHAR(100), validity_license VARCHAR(100), PRIMARY KEY (reg));")
     cursor.execute("CREATE TABLE IF NOT EXISTS vehicles (reg integer not null, plate VARCHAR(200), vehicles_type VARCHAR(200), model VARCHAR(200), date VARCHAR(200), km_initial VARCHAR(200), km_now VARCHAR(200), PRIMARY KEY (reg));")
-    cursor.execute("CREATE TABLE IF NOT EXISTS routes (reg integer not null, route_code VARCHAR(200), route_start VARCHAR(200), route_end VARCHAR(200), stop_1 VARCHAR(200), stop_2 VARCHAR(200), PRIMARY KEY(reg));")
+    cursor.execute("CREATE TABLE IF NOT EXISTS routes (reg integer not null, route_code VARCHAR(200), route_start VARCHAR(200), route_end VARCHAR(200), stop VARCHAR(200), PRIMARY KEY(reg));")
     con.commit()
     con.close()
     menu()
@@ -431,19 +429,22 @@ def login():
 def post_login_error():
     print("\nEscolha uma das opções\n")
     print("[ 1 ] Tentar novamente")
-    print("[ 2 ] Recuperar senha")
-    print("[ 3 ] Voltar ao menu principal")
-    print("[ 4 ] Sair do sistema")
+    print("[ 2 ] Criar conta")
+    print("[ 3 ] Recuperar senha")
+    print("[ 4 ] Voltar ao menu principal")
+    print("[ 5 ] Sair do sistema")
 
     option = int(input("\nO que você deseja? "))
 
     if (option == 1):
         login()
     elif (option == 2):
-        recovery_account()
+        create_account()
     elif (option == 3):
-        menu()
+        recovery_account()
     elif (option == 4):
+        menu()
+    elif (option == 5):
         print("\x1b[2J\x1b[1;1H")
         exit()
     else:
@@ -782,5 +783,3 @@ def value_error_input():
     print(">> Erro inesperado, o programa será reinicializado")
     time.sleep(3)
     menu()
-
-# End - Code written by Lui Richard - [Github: https://github.com/luideveloper]

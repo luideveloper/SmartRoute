@@ -1,5 +1,3 @@
-# Start - Code written by Lui Richard - [Github: https://github.com/luideveloper]
-
 # Importação de bibliotecas ↓
 
 import sqlite3
@@ -169,12 +167,14 @@ def update_driver():
                 time.sleep(3)
                 con.close()
         else:
-            post_error_recovery_account()
+            print("\x1b[2J\x1b[1;1H")
+            print("\n== As senhas digitadas não são iguais ==\n")
+            time.sleep(3)
+            con.commit()
+            con.close()
     else:
         print("\x1b[2J\x1b[1;1H")
         print("== ATENÇÃO ==\n")
         print(">> Funcionário não encontrado")
         time.sleep(5)
         con.close()
-
-# End - Code written by Lui Richard - [Github: https://github.com/luideveloper]
