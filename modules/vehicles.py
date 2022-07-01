@@ -11,7 +11,7 @@ import time
 
 def register_vehicles():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
     plate = input("\nPlaca do veículo: ")
     plate = plate.upper()
@@ -31,7 +31,7 @@ def register_vehicles():
 
 def read_vehicles():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
     query = "SELECT plate, vehicles_type, model, date, km_initial, km_now FROM vehicles;"
     cursor.execute(query)
@@ -59,7 +59,7 @@ def update_vehicles():
     newplate = input("Placa do veículo: ")
     newplate = newplate.upper()
     km_now = input("Qual a quilometragem atual: ")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
     consultaAtualizar = "UPDATE vehicles SET plate=?, km_now=? WHERE plate=?"
     cursor.execute(consultaAtualizar,(newplate,km_now,plate))
@@ -74,7 +74,7 @@ def remove_vehicles():
     print("\x1b[2J\x1b[1;1H")
     plate = input("Qual placa do veículo você deseja remover? ")
     plate = plate.upper()
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
     consulteDelete = "DELETE FROM vehicles WHERE plate=?"
     cursor.execute(consulteDelete,(plate,))

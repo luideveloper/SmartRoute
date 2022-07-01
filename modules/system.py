@@ -1,14 +1,14 @@
 # Importação de bibliotecas ↓
-
+import sys
 import sqlite3
 import time
 
 # Importação de funções de arquivos externos ↓
 
-from driver import *
-from vehicles import *
-from routes import *
-from business import *
+from .driver import *
+from .vehicles import *
+from .routes import *
+from .business import *
 
 # Função responsável por iniciar a conexão com o banco de dados ↓
 
@@ -16,7 +16,7 @@ def start_bd():
 
     # Conexão + cursor ↓
 
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
 
     # Realiza a checagem e criação de tabelas no banco de dados ↓
@@ -347,7 +347,7 @@ def menu_operational():
 
 def login():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
 
     # Faz uma puxada de todos os usuários já cadastrados no banco 
@@ -455,7 +455,7 @@ def post_login_error():
 def create_account():
     print("\x1b[2J\x1b[1;1H")
 
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
 
     # Chave de permissão para criar uma conta no sistema ↓
@@ -579,7 +579,7 @@ def create_account():
 
 def recovery_account():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
 
     cpf = input("\nQual o cpf da conta que deseja recuperar? ")

@@ -12,7 +12,7 @@ import time
 
 def create_routes():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
 
     cod_query_read = "SELECT route_code FROM routes"
@@ -101,7 +101,7 @@ def create_routes():
 
 def read_routes():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
     query = "SELECT route_code, route_start, stop, route_end FROM routes;"
     cursor.execute(query)
@@ -120,7 +120,7 @@ def read_routes():
     
 def update_routes():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
     route_code = input("Qual o código da rota que você deseja atualizar? ")
     new_route_start = input("\nNovo inicio da rota: ")
@@ -138,7 +138,7 @@ def update_routes():
 
 def remove_routes():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
     route_code = int(input("Qual o código da rota que você deseja? "))
     tables_delete = "DELETE FROM routes WHERE route_code=?"

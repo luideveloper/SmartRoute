@@ -1,5 +1,5 @@
 # Importação de função de arquivo externo ↓
 
-from system import *
+import modules.system
 
-start_bd() 
+modules.system.start_bd() 

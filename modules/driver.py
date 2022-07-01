@@ -7,7 +7,7 @@ import time
 
 def register_driver():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
     office = "Motorista" # Definição do cargo (fixo) para inserção no banco de dados
     name = input("Nome: ")
@@ -74,7 +74,7 @@ def register_driver():
 
 def read_driver():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
     office = "Motorista"
     cod_query_read = "SELECT name, cpf, type_license, validity_license FROM users WHERE office =?;"
@@ -96,7 +96,7 @@ def read_driver():
 
 def update_driver():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db")
     cursor = con.cursor()
 
     cpf = input("\nQual o cpf do funcionário que deseja atualizar os dados? ")
