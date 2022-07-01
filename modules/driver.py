@@ -7,7 +7,7 @@ import time
 
 def register_driver():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("SmartRoute\database\dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db") 
     cursor = con.cursor()
     office = "Motorista" # Definição do cargo (fixo) para inserção no banco de dados
     name = input("Nome: ")
