@@ -16,7 +16,7 @@ def start_bd():
 
     # Conexão + cursor ↓
 
-    con = sqlite3.connect("SmartRoute\database\dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db") 
     cursor = con.cursor()
 
     # Realiza a checagem e criação de tabelas no banco de dados ↓
