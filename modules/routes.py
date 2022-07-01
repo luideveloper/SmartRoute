@@ -138,7 +138,7 @@ def update_routes():
 
 def remove_routes():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("SmartRoute\database\dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db") 
     cursor = con.cursor()
     route_code = int(input("Qual o código da rota que você deseja? "))
     tables_delete = "DELETE FROM routes WHERE route_code=?"
