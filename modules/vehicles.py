@@ -11,7 +11,7 @@ import time
 
 def register_vehicles():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("SmartRoute\database\dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db") 
     cursor = con.cursor()
     plate = input("\nPlaca do veículo: ")
     plate = plate.upper()
