@@ -10,7 +10,7 @@ from .driver import *
 # Ler todos os usuários cadastrados no sistema ↓
 
 def read_employee():
-    con = sqlite3.connect("SmartRoute\database\dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db") 
     cursor = con.cursor()
     cod_query_read = "SELECT name, cpf, user, office FROM users;"
     cursor.execute(cod_query_read)
@@ -32,7 +32,7 @@ def read_employee():
 
 def update_account():
     print("\x1b[2J\x1b[1;1H")
-    con = sqlite3.connect("SmartRoute\database\dados.db")
+    con = sqlite3.connect("SmartRoute\database\dados.db") 
     cursor = con.cursor()
 
     cpf = input("\nQual o cpf do funcionário que deseja atualizar os dados? ")
